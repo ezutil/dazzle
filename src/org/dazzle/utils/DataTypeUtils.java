@@ -15,7 +15,7 @@ import java.util.Set;
 
 import org.dazzle.common.exception.BaseException;
 
-/**<a href="https://github.com/hcqt/dazzle">https://github.com/hcqt/dazzle</a>
+/**本软件内的大多数方法禁止Override，原因是作者提倡组合，而非继承，如果您确实需要用到继承，而又希望用本软件提供的方法名称与参数列表，建议您自行采用适配器设计模式，逐个用同名方法包裹本软件所提供的方法，这样您依然可以使用继承
  * @see #convert(Class, Object) 
  * @author hcqt@qq.com */
 public class DataTypeUtils {

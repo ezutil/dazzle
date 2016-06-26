@@ -16,8 +16,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
 
-/**本软件为开源项目，最新项目发布于github，可提交您的代码到本开源软件，项目网址：<a href="https://github.com/hcqt/dazzle">https://github.com/hcqt/dazzle</a><br />
- * 本软件内的大多数方法禁止Override，原因是作者提倡组合，而非继承，如果您确实需要用到继承，而又希望用本软件提供的方法名称与参数列表，建议您自行采用适配器设计模式，逐个用同名方法包裹本软件所提供的方法，这样您依然可以使用继承
+/**本软件内的大多数方法禁止Override，原因是作者提倡组合，而非继承，如果您确实需要用到继承，而又希望用本软件提供的方法名称与参数列表，建议您自行采用适配器设计模式，逐个用同名方法包裹本软件所提供的方法，这样您依然可以使用继承
  * @see #toObj(String)
  * @author hcqt@qq.com*/
 public class JsonUtils {
@@ -93,35 +92,5 @@ public class JsonUtils {
             return null;
         }
     }
-//    public static void main(String[] args) {
-//    String json = 
-//              ""
-//            + "{"
-//            + "    '1': {"
-//            + "        '1.1': {"
-//            + "            '1.1.1': ["
-//            + "                'aaaa',"
-//            + "                'bbbb'"
-//            + "            ],"
-//            + "            '1.1.2': ["
-//            + "                'cccc',"
-//            + "                'dddd'"
-//            + "            ]"
-//            + "        },"
-//            + "        '1.2': ["
-//            + "            'eeee',"
-//            + "            'ffff'"
-//            + "        ],"
-//            + "        '1.3': 'jjjj'"
-//            + "    }"
-//            + "}"
-//            + "";
-//    @SuppressWarnings("rawtypes")
-//    Map map = (Map) toObj(json);
-//    @SuppressWarnings("rawtypes")
-//    Map map2 = (Map) toObj(json, LinkedList.class, ConcurrentSkipListMap.class);// ConcurrentHashMap
-//    System.out.println("json字符串转成对象-->"+map);// 如果是转自定义对象的代码，直接使用google的代码即可
-//    System.out.println("json字符串转成对象-->"+map2);
-//    System.out.println("对象转成json字符串-->"+toJson(map));
-//}
+
 }

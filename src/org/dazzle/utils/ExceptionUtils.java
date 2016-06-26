@@ -7,7 +7,8 @@ import java.io.StringWriter;
 /** @author hcqt@qq.com */
 public class ExceptionUtils {
 
-	/** @author hcqt@qq.com */
+	/**将异常堆栈信息输出为字符串
+	 * @author hcqt@qq.com */
 	public static final String out(final Throwable throwable) {
 		StringWriter stringWriter = new StringWriter();
 		PrintWriter printWriter = null;
