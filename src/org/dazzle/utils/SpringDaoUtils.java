@@ -103,7 +103,7 @@ public class SpringDaoUtils {
 			String tableName, 
 			Map<String, Object> data) {
 		StringBuilder sql = new StringBuilder();
-		List<Object> params = new ArrayList<>();
+		List<Object> params = new ArrayList<Object>();
 		createInsertSql(null, null, tableName, data, sql, params);
 		return insert(jdbcOperations, sql.toString(), params);
 	}
@@ -116,7 +116,7 @@ public class SpringDaoUtils {
 			String tableName, 
 			Map<String, Object> data) {
 		StringBuilder sql = new StringBuilder();
-		List<Object> params = new ArrayList<>();
+		List<Object> params = new ArrayList<Object>();
 		createInsertSql(fieldsMapping, tablesMapping, tableName, data, sql, params);
 		return insert(jdbcOperations, sql.toString(), params);
 	}
@@ -155,7 +155,7 @@ public class SpringDaoUtils {
 			Object setData, 
 			Object where) {
 		StringBuilder sql = new StringBuilder();
-		List<Object> params = new ArrayList<>();
+		List<Object> params = new ArrayList<Object>();
 		createUpdateSql(null, null, tableName, setData, where, sql, params);
 		update(jdbcOperations, sql.toString(), params);
 	}
@@ -169,7 +169,7 @@ public class SpringDaoUtils {
 			Object setData, 
 			Object where) {
 		StringBuilder sql = new StringBuilder();
-		List<Object> params = new ArrayList<>();
+		List<Object> params = new ArrayList<Object>();
 		createUpdateSql(fieldsMapping, tablesMapping, tableName, setData, where, sql, params);
 		update(jdbcOperations, sql.toString(), params);
 	}
@@ -261,7 +261,7 @@ public class SpringDaoUtils {
 			String tableName, 
 			Object where) {
 		StringBuilder sql = new StringBuilder();
-		List<Object> params = new ArrayList<>();
+		List<Object> params = new ArrayList<Object>();
 		createDeleteSql(fieldsMapping, tableName, where, sql, params);
 		delete(jdbcOperations, sql.toString(), params);
 	}
@@ -445,11 +445,11 @@ public class SpringDaoUtils {
 			Boolean autoCount, 
 			Boolean needResultSequence, 
 			Boolean needResultFieldFullName) {
-		List<Object> params = new ArrayList<>();
+		List<Object> params = new ArrayList<Object>();
 		StringBuilder sql = new StringBuilder();
 		createFindSqlStrAndParam(fieldsMapping, tablesMapping, selectFields, fromTable, where, groupByHaving, orderBy, startNum, rowNum, sql, params);
 		List<Map<String, Object>> result = find(jdbcOperations, resultMappping, needResultSequence, needResultFieldFullName, sql.toString(), params);
-		Map<String, Object> ret = new LinkedHashMap<>();
+		Map<String, Object> ret = new LinkedHashMap<String, Object>();
 		ret.put("result", result);
 		if(null != autoCount && autoCount) {
 			ret.put("countNum", findAutoCount(jdbcOperations, sql.toString(), params));
@@ -493,7 +493,7 @@ public class SpringDaoUtils {
 	public static final <T> List<Map<String, Object>> find(
 			JdbcOperations jdbcOperations, 
 			String sql, 
-			@SuppressWarnings("unchecked") T... params) {
+			T... params) {
 		List<Map<String, Object>> resultMappping = null;
 		Boolean needResultSequence = null;
 		Boolean needResultFieldFullName = null;
@@ -551,7 +551,7 @@ public class SpringDaoUtils {
 			Integer rowNum
 			) {
 		StringBuilder sql = new StringBuilder();
-		List<Object> params = new ArrayList<>();
+		List<Object> params = new ArrayList<Object>();
 		createFindSqlStrAndParam(fieldsMapping, tablesMapping, selectFields, fromTable, where, groupByHaving, orderBy, startNum, rowNum, sql, params);
 		return sql.toString();
 	}
@@ -568,7 +568,7 @@ public class SpringDaoUtils {
 			Integer startNum, 
 			Integer rowNum) {
 		StringBuilder sql = new StringBuilder();
-		List<Object> params = new ArrayList<>();
+		List<Object> params = new ArrayList<Object>();
 		createFindSqlStrAndParam(fieldsMapping, tablesMapping, selectFields, fromTable, where, groupByHaving, orderBy, startNum, rowNum, sql, params);
 		return params;
 	}
@@ -637,13 +637,13 @@ public class SpringDaoUtils {
 			public Map<String, Object> mapRow(ResultSet rs, int rn) throws SQLException {
 				Map<String, Object> ret;
 				if(null != needResultSequence && needResultSequence) {
-					ret = new LinkedHashMap<>();
+					ret = new LinkedHashMap<String, Object>();
 				} else {
-					ret = new HashMap<>();
+					ret = new HashMap<String, Object>();
 				}
 				List<Map<String, Object>> _resultMappping = resultMappping;
 				if(_resultMappping == null) {
-					_resultMappping = new ArrayList<>();
+					_resultMappping = new ArrayList<Map<String, Object>>();
 				}
 				if(_resultMappping.isEmpty()) {
 					autoResultMappping(rs, ret, _resultMappping, needResultFieldFullName);
@@ -663,7 +663,7 @@ public class SpringDaoUtils {
 			needResultFieldFullName = false;
 		}
 		for (int i = 1; i <= rs.getMetaData().getColumnCount(); i++) {
-			Map<String, Object> columnInfo = new HashMap<>();
+			Map<String, Object> columnInfo = new HashMap<String, Object>();
 			if(needResultFieldFullName) {
 				columnInfo.put("field", rs.getMetaData().getTableName(i) + "." + rs.getMetaData().getColumnLabel(i));
 			} else {
@@ -742,10 +742,10 @@ public class SpringDaoUtils {
 
 	/**@author hcqt@qq.com*/
 	public static final List<Map<String, Object>> whereMapFormat(Map<String, Object> where) {
-		List<Map<String, Object>> _where = new ArrayList<>();
+		List<Map<String, Object>> _where = new ArrayList<Map<String, Object>>();
 		Map<String, Object> tmp = null;
 		for (Entry<String, Object> item : where.entrySet()) {
-			tmp = new HashMap<>();
+			tmp = new HashMap<String, Object>();
 			tmp.put("field", item.getKey());
 			tmp.put("opt", Opt.EQ);
 			tmp.put("val", item.getValue());
@@ -856,7 +856,7 @@ public static int i = 0;
 		}
 		try {
 			ret = resultClazz.newInstance();
-		} catch (InstantiationException | IllegalAccessException e) {
+		} catch (Exception e) {
 			throw new BaseException("spring_dao_23T5d", "指定容纳结果集数据的数据类型class无法实例化，您传入的数据类型为——{0}，异常——{1}", resultClazz.getName(), EU.out(e));
 		}
 		for (Map<String, Object> currentRow : result) {
@@ -883,7 +883,7 @@ public static int i = 0;
 		// 逐个从当前行按照映射取值，把取到的值放入新行内，如果所有字段均顺利通过，那么把新行放入结果集内
 		int i = 0;
 		int onlyFieldNum = onlyFieldNum(resultMapping);
-		Map<String, Object> newRow = new HashMap<>();
+		Map<String, Object> newRow = new HashMap<String, Object>();
 		for (Map<String, Object> _resultMapping : resultMapping) {
 			Object tbField = _resultMapping.get("tbField");
 			Class<?> type = DTU.cvt(Class.class, _resultMapping.get("type"));
@@ -1033,7 +1033,7 @@ public static int i = 0;
 
 	/**@author hcqt@qq.com*/
 	public static final Map<String, Object> genFieldMapping(Object tbField, String field, String parentField, Class<?> type, Boolean isRowOnly) {
-		Map<String, Object> ret = new HashMap<>();
+		Map<String, Object> ret = new HashMap<String, Object>();
 		if(tbField != null) {
 			ret.put("tbField", tbField);
 		}
@@ -1065,7 +1065,7 @@ public static int i = 0;
 		if(maps == null || maps.length < 1) {
 			return null;
 		}
-		List<Map<String, Object>> ret = new ArrayList<>(maps.length);
+		List<Map<String, Object>> ret = new ArrayList<Map<String, Object>>(maps.length);
 		for (Map<String, Object> map : maps) {
 			if(map == null) {
 				continue;
@@ -1189,9 +1189,9 @@ public static int i = 0;
 		if(null == resultMappping) {
 			return null;
 		}
-		List<Map<String, Object>> ret = new ArrayList<>();
+		List<Map<String, Object>> ret = new ArrayList<Map<String, Object>>();
 		for (Entry<String, String> item : resultMappping.entrySet()) {
-			Map<String, Object> map = new HashMap<>();
+			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("field", item.getKey());
 			map.put("tbField", item.getValue());
 			map.put("type", Object.class);
@@ -1492,7 +1492,7 @@ public static int i = 0;
 
 	/**@author hcqt@qq.com*/
 	private static final Integer getFirstSeparatorIndex(String table, String... separators) {
-		Set<Integer> a = new LinkedHashSet<>();
+		Set<Integer> a = new LinkedHashSet<Integer>();
 		for (String separator : separators) {
 			a.add(SU.indexOfIgnoreCase(table, separator, 1));
 		}
@@ -1581,7 +1581,7 @@ public static int i = 0;
 			if(_where == null) {
 				throw new BaseException("springDaoUtils_36tdr", "传入的where条件不符合规范");
 			}
-			Map<String, Object> newWhere = new HashMap<>(_where); 
+			Map<String, Object> newWhere = new HashMap<String, Object>(_where); 
 			for (Entry<String, Object> entry : _where.entrySet()) {
 				if(entry.getValue() == null) {
 					newWhere.remove(entry.getKey());

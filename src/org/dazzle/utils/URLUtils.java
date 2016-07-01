@@ -1,6 +1,5 @@
 package org.dazzle.utils;
 
-import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -27,7 +26,7 @@ public final class URLUtils {
 	public static final URL resolve(final URL url) {
 		try {
 			return resolve(url.toURI()).toURL();
-		} catch (MalformedURLException | URISyntaxException e) {
+		} catch (Exception e) {
 			throw new BaseException("SYS_COMMON_RESOLVE_REAL_PATH_9nm3g", "URL[{0}]语法错误，详情——{1}", e, url, EU.out(e));
 		}
 	}

@@ -168,7 +168,7 @@ public class BeanUtils {
 		T ret = null;
 		try {
 			ret = clazz.newInstance();
-		} catch (InstantiationException | IllegalAccessException e) {
+		} catch (Exception e) {
 			throw new BaseException("beanUtils_8n3lk", "目标对象[{0}]实例化失败，详情——{1}", e, EU.out(e));
 		}
 		return bean2Bean(fieldMapping, obj, ret);
@@ -202,7 +202,7 @@ public class BeanUtils {
 		T ret = null;
 		try {
 			ret = beanClazz.newInstance();
-		} catch (InstantiationException | IllegalAccessException e) {
+		} catch (Exception e) {
 			throw new BaseException("beanUtils_9k3hQ", "map无法转换为javaBean，因为JavaBean无法实例化，详情——{0}", e, EU.out(e));
 		}
 		return map2Bean(ret, map);
@@ -232,7 +232,7 @@ public class BeanUtils {
 		Collection<S> ret = null;
 		try {
 			ret = collection.getClass().newInstance();
-		} catch (InstantiationException | IllegalAccessException e) {
+		} catch (Exception e) {
 			throw new BaseException("beanUtils_72jJk", "集合类型实例化失败，详情——{0}", e, e.getMessage());
 		}
 		for(Map<String, ?> item : collection){
@@ -254,7 +254,7 @@ public class BeanUtils {
 		if(null == clazz) {
 			return null;
 		}
-		Set<String> ret = new HashSet<>();
+		Set<String> ret = new HashSet<String>();
 		for (Class<?> currentClass = clazz; currentClass != Object.class; currentClass = currentClass.getSuperclass()) {
 			Field[] fields = currentClass.getDeclaredFields();
 			for (Field field : fields) {
@@ -284,7 +284,7 @@ public class BeanUtils {
 					Field _field = currentClass.getDeclaredField(field);
 					_field.setAccessible(true);
 					return _field.get(obj);
-				} catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e1) { }
+				} catch (Throwable e1) { }
 			}
 		}
 		return null;
@@ -311,7 +311,7 @@ public class BeanUtils {
 					Field _field = currentClass.getDeclaredField(field);
 					_field.setAccessible(true);
 					_field.set(obj, val);
-				} catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e2) { }
+				} catch (Throwable e2) { }
 			}
 		}
 	}

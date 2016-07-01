@@ -40,7 +40,7 @@ public class NetUtils {
 	public static final void printPlainText(
 			HttpServletResponse response, 
 			String content) {
-		Map<String, String> header = new HashMap<>();
+		Map<String, String> header = new HashMap<String, String>();
 		header.put("Content-Type", "text/plain; charset=utf-8");
 		print(response, header, content);
 	}
@@ -49,7 +49,7 @@ public class NetUtils {
 	public static final void printJsonText(
 			HttpServletResponse response, 
 			String content) {
-		Map<String, String> header = new HashMap<>();
+		Map<String, String> header = new HashMap<String, String>();
 		header.put("Content-Type", "application/json; charset=utf-8");
 		print(response, header, content);
 	}
@@ -60,7 +60,7 @@ public class NetUtils {
 			Map<String, String> header, 
 			String content) {
 		if(null == header) {
-			header = new HashMap<>();
+			header = new HashMap<String, String>();
 		}
 		if(null == MU.getIgnoreCaseTrim(header, "Content-Type")) {
 			header.put("Content-Type", "text/html; charset=utf-8");
@@ -265,7 +265,7 @@ public class NetUtils {
 		if(null == url) {
 			return null;
 		}
-		Map<String, String[]> param = new LinkedHashMap<>();
+		Map<String, String[]> param = new LinkedHashMap<String, String[]>();
 		Map<String, String[]> oldParam = getParameterMap(url, enc, true);
 		if(null != oldParam) {
 			parameters.putAll(oldParam);
@@ -304,9 +304,9 @@ public class NetUtils {
 	public static final Map<String, String[]> getParameterMap(String url, String enc, boolean needSequence) {
 		Map<String, String[]> ret = null;
 		if(needSequence) {
-			ret = new LinkedHashMap<>();
+			ret = new LinkedHashMap<String, String[]>();
 		} else {
-			ret = new HashMap<>();
+			ret = new HashMap<String, String[]>();
 		}
 		RequestUtil.parseParameters(ret, getUriQuery(url), enc);
 		return ret;

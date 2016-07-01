@@ -94,7 +94,7 @@ public class MapUtils {
 		if(map == null) {
 			return;
 		}
-		Set<Object> waitRemoveKeys = new HashSet<>();
+		Set<Object> waitRemoveKeys = new HashSet<Object>();
 		for (Entry<?, ?> entry : map.entrySet()) {
 			if(entry.getValue() == null) {
 				waitRemoveKeys.add(entry.getKey());
@@ -107,7 +107,6 @@ public class MapUtils {
 
 	/**@author hcqt@qq.com */
 	@SuppressWarnings("unchecked")
-	@SafeVarargs
 	public static final <T, N extends Map<T, T>> N put(Class<N> clazz, T... oddEvenKeyValPairs) {
 		if(oddEvenKeyValPairs == null) {
 			return null;
@@ -115,20 +114,20 @@ public class MapUtils {
 		if(oddEvenKeyValPairs.length % 2 != 0) {
 			throw new BaseException("mapUtils_98k3G", "键值对必须成对出现，您传入的数组个数是奇数，不符合规定，异常数据——{0}", Arrays.toString(oddEvenKeyValPairs));
 		}
-		try {
-			N n;
-			if(clazz.isInterface()) {
-				n = (N) new HashMap<>();
-			} else {
+		N n;
+		if(clazz.isInterface()) {
+			n = (N) new HashMap<Object, Object>();
+		} else {
+			try {
 				n = clazz.newInstance();
+			} catch (Exception e) {
+				throw new BaseException("mapUtils_p2hE3", "map无法实例化，详情——{0}", e, EU.out(e));
 			}
-			for (int i = 0; i < oddEvenKeyValPairs.length; i+=2) {
-				n.put(oddEvenKeyValPairs[i], oddEvenKeyValPairs[i + 1]);
-			}
-			return n;
-		} catch (InstantiationException | IllegalAccessException e) {
-			throw new BaseException("mapUtils_p2hE3", "map无法实例化，详情——{0}", e, EU.out(e));
 		}
+		for (int i = 0; i < oddEvenKeyValPairs.length; i+=2) {
+			n.put(oddEvenKeyValPairs[i], oddEvenKeyValPairs[i + 1]);
+		}
+		return n;
 	}
 
 	/**@see #get(Class, Map, String)
@@ -207,7 +206,7 @@ public class MapUtils {
 	private static final <T extends Map<? extends String, ?>> T put0(Class<T> newMapType) {
 		try {
 			return newMapType.newInstance();
-		} catch (InstantiationException | IllegalAccessException e) {
+		} catch (Exception e) {
 			throw new BaseException("ser_map_k43hD", "您传入的类型{0}无法实例化，详情:{1}", e, newMapType.getName(), EU.out(e));
 		}
 	}

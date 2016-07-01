@@ -20,16 +20,16 @@ public class SimpleWebDTO implements WebDTO {
 	/** @author hcqt@qq.com */
 	public SimpleWebDTO() { 
 		super(); 
-		codes = new HashMap<>();
+		codes = new HashMap<String, Object>();
 	}
 
 	/** @author hcqt@qq.com */
 	public SimpleWebDTO(boolean needSequence) { 
 		super(); 
 		if(needSequence) {
-			codes = new LinkedHashMap<>();
+			codes = new LinkedHashMap<String, Object>();
 		} else {
-			codes = new HashMap<>();
+			codes = new HashMap<String, Object>();
 		}
 	}
 

@@ -157,13 +157,13 @@ public class DataTypeUtils {
 		Collection<Object> coll = null;
 		if(destClazz.isInterface()) {
 			if(List.class.isAssignableFrom(destClazz)) {
-				coll = new ArrayList<>();
+				coll = new ArrayList<Object>();
 			} 
 			else if(Set.class.isAssignableFrom(destClazz)) {
-				coll = new HashSet<>();
+				coll = new HashSet<Object>();
 			} 
 			else if(Queue.class.isAssignableFrom(destClazz)) {
-				coll = new LinkedList<>();
+				coll = new LinkedList<Object>();
 			} 
 			else {
 				throw new BaseException("dataTypeUtils_8h3kj", "暂不支持向集合类型{0}转换", destClazz.getName());
@@ -171,7 +171,7 @@ public class DataTypeUtils {
 		} else {
 			try {
 				coll = (Collection<Object>) destClazz.newInstance();
-			} catch (InstantiationException | IllegalAccessException e) {
+			} catch (Exception e) {
 				throw new BaseException("dataTypeUtils_83hnk", "无法对类型{0}进行实例化", e, destClazz.getName());
 			}
 		}
@@ -435,28 +435,28 @@ public class DataTypeUtils {
 		}
 		if(!objClazz.isArray()) {
 			if(int.class.isAssignableFrom(objClazz)) {
-				return Integer.valueOf((int) srcObj);
+				return (Integer) srcObj;
 			} 
 			else if(long.class.isAssignableFrom(objClazz)) {
-				return Long.valueOf((long) srcObj);
+				return (Long) srcObj;
 			}
 			else if(double.class.isAssignableFrom(objClazz)) {
-				return Double.valueOf((double) srcObj);
+				return (Double) srcObj;
 			}
 			else if(float.class.isAssignableFrom(objClazz)) {
-				return Float.valueOf((float) srcObj);
+				return (Float) srcObj;
 			}
 			else if(short.class.isAssignableFrom(objClazz)) {
-				return Short.valueOf((short) srcObj);
+				return (Short) srcObj;
 			}
 			else if(byte.class.isAssignableFrom(objClazz)) {
-				return Byte.valueOf((byte) srcObj);
+				return (Byte) srcObj;
 			}
 			else if(char.class.isAssignableFrom(objClazz)) {
-				return Character.valueOf((char) srcObj);
+				return (Character) srcObj;
 			}
 			else if(boolean.class.isAssignableFrom(objClazz)) {
-				return Boolean.valueOf((boolean) srcObj);
+				return (Boolean) srcObj;
 			}
 		} else {
 			if(int[].class.isAssignableFrom(objClazz)) {
@@ -540,35 +540,35 @@ public class DataTypeUtils {
 		}
 		if(!clazz.isArray()) {
 			if(Integer.class.isAssignableFrom(clazz)) {
-				return (int) obj;
+				return (Integer) obj;
 			} 
 			else if(Long.class.isAssignableFrom(clazz)) {
-				return (long) obj;
+				return (Long) obj;
 			}
 			else if(Double.class.isAssignableFrom(clazz)) {
-				return (double) obj;
+				return (Double) obj;
 			}
 			else if(Float.class.isAssignableFrom(clazz)) {
-				return (float) obj;
+				return (Float) obj;
 			}
 			else if(Short.class.isAssignableFrom(clazz)) {
-				return (short) obj;
+				return (Short) obj;
 			}
 			else if(Byte.class.isAssignableFrom(clazz)) {
-				return (byte) obj;
+				return (Byte) obj;
 			}
 			else if(Character.class.isAssignableFrom(clazz)) {
-				return (char) obj;
+				return (Character) obj;
 			}
 			else if(Boolean.class.isAssignableFrom(clazz)) {
-				return (boolean) obj;
+				return (Boolean) obj;
 			}
 		} else {
 			if(Integer[].class.isAssignableFrom(clazz)) {
 				Integer[] tmp = (Integer[]) obj;
 				int[] newObj = new int[tmp.length];
 				for (int i = 0; i < tmp.length; i++) {
-					newObj[i] = (int) unBoxing(tmp[i]);
+					newObj[i] = (Integer) unBoxing(tmp[i]);
 				}
 				return newObj;
 			} 
@@ -576,7 +576,7 @@ public class DataTypeUtils {
 				Long[] tmp = (Long[]) obj;
 				long[] newObj = new long[tmp.length];
 				for (int i = 0; i < tmp.length; i++) {
-					newObj[i] = (long) unBoxing(tmp[i]);
+					newObj[i] = (Long) unBoxing(tmp[i]);
 				}
 				return newObj;
 			}
@@ -584,7 +584,7 @@ public class DataTypeUtils {
 				Double[] tmp = (Double[]) obj;
 				double[] newObj = new double[tmp.length];
 				for (int i = 0; i < tmp.length; i++) {
-					newObj[i] = (double) unBoxing(tmp[i]);
+					newObj[i] = (Double) unBoxing(tmp[i]);
 				}
 				return newObj;
 			}
@@ -592,7 +592,7 @@ public class DataTypeUtils {
 				Float[] tmp = (Float[]) obj;
 				float[] newObj = new float[tmp.length];
 				for (int i = 0; i < tmp.length; i++) {
-					newObj[i] = (float) unBoxing(tmp[i]);
+					newObj[i] = (Float) unBoxing(tmp[i]);
 				}
 				return newObj;
 			}
@@ -600,7 +600,7 @@ public class DataTypeUtils {
 				Short[] tmp = (Short[]) obj;
 				short[] newObj = new short[tmp.length];
 				for (int i = 0; i < tmp.length; i++) {
-					newObj[i] = (short) unBoxing(tmp[i]);
+					newObj[i] = (Short) unBoxing(tmp[i]);
 				}
 				return newObj;
 			}
@@ -608,7 +608,7 @@ public class DataTypeUtils {
 				Byte[] tmp = (Byte[]) obj;
 				byte[] newObj = new byte[tmp.length];
 				for (int i = 0; i < tmp.length; i++) {
-					newObj[i] = (byte) unBoxing(tmp[i]);
+					newObj[i] = (Byte) unBoxing(tmp[i]);
 				}
 				return newObj;
 			}
@@ -616,7 +616,7 @@ public class DataTypeUtils {
 				Character[] tmp = (Character[]) obj;
 				char[] newObj = new char[tmp.length];
 				for (int i = 0; i < tmp.length; i++) {
-					newObj[i] = (char) unBoxing(tmp[i]);
+					newObj[i] = (Character) unBoxing(tmp[i]);
 				}
 				return newObj;
 			}
@@ -624,13 +624,114 @@ public class DataTypeUtils {
 				Boolean[] tmp = (Boolean[]) obj;
 				boolean[] newObj = new boolean[tmp.length];
 				for (int i = 0; i < tmp.length; i++) {
-					newObj[i] = (boolean) unBoxing(tmp[i]);
+					newObj[i] = (Boolean) unBoxing(tmp[i]);
 				}
 				return newObj;
 			}
 		}
 		return obj;
 	}
+//	public static final Object unBoxing(Object obj) {
+//		if(null == obj) {
+//			return null;
+//		}
+//		Class<?> clazz = obj.getClass();
+//		if(isPrimitive(clazz)) {
+//			return obj;
+//		}
+//		if(!clazz.isArray()) {
+//			if(Integer.class.isAssignableFrom(clazz)) {
+//				return (int) obj;
+//			} 
+//			else if(Long.class.isAssignableFrom(clazz)) {
+//				return (long) obj;
+//			}
+//			else if(Double.class.isAssignableFrom(clazz)) {
+//				return (double) obj;
+//			}
+//			else if(Float.class.isAssignableFrom(clazz)) {
+//				return (float) obj;
+//			}
+//			else if(Short.class.isAssignableFrom(clazz)) {
+//				return (short) obj;
+//			}
+//			else if(Byte.class.isAssignableFrom(clazz)) {
+//				return (byte) obj;
+//			}
+//			else if(Character.class.isAssignableFrom(clazz)) {
+//				return (char) obj;
+//			}
+//			else if(Boolean.class.isAssignableFrom(clazz)) {
+//				return (boolean) obj;
+//			}
+//		} else {
+//			if(Integer[].class.isAssignableFrom(clazz)) {
+//				Integer[] tmp = (Integer[]) obj;
+//				int[] newObj = new int[tmp.length];
+//				for (int i = 0; i < tmp.length; i++) {
+//					newObj[i] = (int) unBoxing(tmp[i]);
+//				}
+//				return newObj;
+//			} 
+//			else if(Long[].class.isAssignableFrom(clazz)) {
+//				Long[] tmp = (Long[]) obj;
+//				long[] newObj = new long[tmp.length];
+//				for (int i = 0; i < tmp.length; i++) {
+//					newObj[i] = (long) unBoxing(tmp[i]);
+//				}
+//				return newObj;
+//			}
+//			else if(Double[].class.isAssignableFrom(clazz)) {
+//				Double[] tmp = (Double[]) obj;
+//				double[] newObj = new double[tmp.length];
+//				for (int i = 0; i < tmp.length; i++) {
+//					newObj[i] = (double) unBoxing(tmp[i]);
+//				}
+//				return newObj;
+//			}
+//			else if(Float[].class.isAssignableFrom(clazz)) {
+//				Float[] tmp = (Float[]) obj;
+//				float[] newObj = new float[tmp.length];
+//				for (int i = 0; i < tmp.length; i++) {
+//					newObj[i] = (float) unBoxing(tmp[i]);
+//				}
+//				return newObj;
+//			}
+//			else if(Short[].class.isAssignableFrom(clazz)) {
+//				Short[] tmp = (Short[]) obj;
+//				short[] newObj = new short[tmp.length];
+//				for (int i = 0; i < tmp.length; i++) {
+//					newObj[i] = (short) unBoxing(tmp[i]);
+//				}
+//				return newObj;
+//			}
+//			else if(Byte[].class.isAssignableFrom(clazz)) {
+//				Byte[] tmp = (Byte[]) obj;
+//				byte[] newObj = new byte[tmp.length];
+//				for (int i = 0; i < tmp.length; i++) {
+//					newObj[i] = (byte) unBoxing(tmp[i]);
+//				}
+//				return newObj;
+//			}
+//			else if(Character[].class.isAssignableFrom(clazz)) {
+//				Character[] tmp = (Character[]) obj;
+//				char[] newObj = new char[tmp.length];
+//				for (int i = 0; i < tmp.length; i++) {
+//					newObj[i] = (char) unBoxing(tmp[i]);
+//				}
+//				return newObj;
+//			}
+//			else if(Boolean[].class.isAssignableFrom(clazz)) {
+//				Boolean[] tmp = (Boolean[]) obj;
+//				boolean[] newObj = new boolean[tmp.length];
+//				for (int i = 0; i < tmp.length; i++) {
+//					newObj[i] = (boolean) unBoxing(tmp[i]);
+//				}
+//				return newObj;
+//			}
+//		}
+//		return obj;
+//	}
 
 	/**对输入数据类型进行装箱<br />把八种基本数据类型装箱为包装类型<br />支持对基本数据类型的数组类型装箱为包装类型<br />
 	 * void类型以及非基本数据类型不进行装箱原样返回<br />输入null返回null不作处理<br />
