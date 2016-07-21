@@ -39,7 +39,7 @@ public class NetUtils {
 	/** @author hcqt@qq.com */
 	public static final void printPlainText(
 			HttpServletResponse response, 
-			String content) {
+			String content) throws NetException {
 		Map<String, String> header = new HashMap<String, String>();
 		header.put("Content-Type", "text/plain; charset=utf-8");
 		print(response, header, content);
@@ -48,7 +48,7 @@ public class NetUtils {
 	/** @author hcqt@qq.com */
 	public static final void printJsonText(
 			HttpServletResponse response, 
-			String content) {
+			String content) throws NetException {
 		Map<String, String> header = new HashMap<String, String>();
 		header.put("Content-Type", "application/json; charset=utf-8");
 		print(response, header, content);
@@ -58,7 +58,7 @@ public class NetUtils {
 	public static final void print(
 			HttpServletResponse response, 
 			Map<String, String> header, 
-			String content) {
+			String content) throws NetException {
 		if(null == header) {
 			header = new HashMap<String, String>();
 		}
@@ -76,7 +76,7 @@ public class NetUtils {
 			out = response.getWriter();
 			out.print(content);
 		} catch (IOException e) {
-			throw new BaseException("net_utils_UWnk3", "从response获取out失败，详情——{0}", e, EU.out(e));
+			throw new NetException("net_utils_UWnk3", "从response获取out失败，详情——{0}", e, EU.out(e));
 		} finally {
 			out.flush();
 		}
@@ -88,11 +88,11 @@ public class NetUtils {
 			final URI uri, 
 			final String urlMethod, 
 			final Map<String, String> requestProperty, 
-			final Map<String, Object> urlParam) throws BaseException {
+			final Map<String, Object> urlParam) throws NetException {
 		try {
 			return httpRead(uri.toURL(), urlMethod, requestProperty, urlParam);
 		} catch (MalformedURLException e) {
-			throw new BaseException(err98Code, err98Msg, e, e.getMessage());
+			throw new NetException(err98Code, err98Msg, e, e.getMessage());
 		}
 	}
 
@@ -102,7 +102,7 @@ public class NetUtils {
 			final URL url, 
 			final String urlMethod, 
 			final Map<String, String> requestProperty, 
-			final Map<String, Object> urlParam) throws BaseException {
+			final Map<String, Object> urlParam) throws NetException {
 		return httpRead(url, urlMethod, requestProperty, urlParamToString(urlParam));
 	}
 
@@ -112,7 +112,7 @@ public class NetUtils {
 			final URI uri, 
 			final String urlMethod, 
 			final Map<String, String> requestProperty, 
-			final String urlQuery) throws BaseException {
+			final String urlQuery) throws NetException {
 		return httpRead(uriToUrl(uri), urlMethod, requestProperty, urlQuery);
 	}
 	
@@ -123,7 +123,7 @@ public class NetUtils {
 	 * @param contentType 如果为空，则连接URL的时候不会指定Content-Type
 	 * @param urlParam 调用URL时候的参数，此方法不会自动进行URL编解码，如需编码，请自己编码
 	 * @return
-	 * @throws BaseException 
+	 * @throws NetException 
 	 * {
 	 *     {@value #err100Code}:{@value #err100Msg},
 	 *     {@value #err99Code}:{@value #err99Msg},
@@ -137,7 +137,7 @@ public class NetUtils {
 			final URL url, 
 			final String urlMethod, 
 			final Map<String, String> requestProperty, 
-			final String urlQuery) throws BaseException {
+			final String urlQuery) throws NetException {
 		OutputStream out = null;
 		InputStream in = null;
 		HttpURLConnection httpConn = null;
@@ -156,7 +156,8 @@ public class NetUtils {
 			}
 			httpConn.connect();
 			if(200 != httpConn.getResponseCode()) {
-				throw new BaseException(err100Code, err100Msg, url, httpConn.getResponseCode());
+				String err = IOUtils.readText(httpConn.getErrorStream(), null);
+				throw new NetException(err100Code, err100Msg, url.toString(), httpConn.getResponseCode(), err, httpConn.getHeaderFields(), url.toString(), httpConn.getResponseCode(), httpConn.getHeaderFields(), err);
 			}
 			in = httpConn.getInputStream();
 			return readInputStreamToString(in);
@@ -181,7 +182,7 @@ public class NetUtils {
 			final URI uri, 
 			final String urlMethod, 
 			final Map<String, String> requestProperty, 
-			final Map<String, Object> urlParam) {
+			final Map<String, Object> urlParam) throws NetException {
 		return httpsRead(uriToUrl(uri), urlMethod, requestProperty, urlParamToString(urlParam));
 	}
 
@@ -190,7 +191,7 @@ public class NetUtils {
 			final URL url, 
 			final String urlMethod, 
 			final Map<String, String> requestProperty, 
-			final Map<String, Object> urlParam) {
+			final Map<String, Object> urlParam) throws NetException {
 		return httpsRead(url, urlMethod, requestProperty, urlParamToString(urlParam));
 	}
 
@@ -199,11 +200,11 @@ public class NetUtils {
 			final URI uri, 
 			final String urlMethod, 
 			final Map<String, String> requestProperty, 
-			final String urlQuery) throws BaseException {
+			final String urlQuery) throws NetException {
 		try {
 			return httpsRead(uri.toURL(), urlMethod, requestProperty, urlQuery);
 		} catch (MalformedURLException e) {
-			throw new BaseException(err98Code, err98Msg, e, e.getMessage());
+			throw new NetException(err98Code, err98Msg, e, e.getMessage());
 		}
 	}
 
@@ -212,7 +213,7 @@ public class NetUtils {
 			final URL url, 
 			final String urlMethod, 
 			final Map<String, String> requestProperty, 
-			final String urlQuery) throws BaseException {
+			final String urlQuery) throws NetException {
 		OutputStream out = null;
 		InputStream in = null;
 		HttpsURLConnection httpConn = null;
@@ -220,7 +221,7 @@ public class NetUtils {
 			try {
 				httpConn = (HttpsURLConnection) url.openConnection();
 			} catch (ClassCastException e) {
-				throw new BaseException("net_utils_4jjhs", "您传入的url的协议头不是https", e);
+				throw new NetException("net_utils_4jjhs", "您传入的url的协议头不是https", e);
 			}
 			httpConn.setRequestMethod(urlMethod);
 			httpConn.setDoOutput(true);
@@ -235,7 +236,8 @@ public class NetUtils {
 			}
 			httpConn.connect();
 			if(200 != httpConn.getResponseCode()) {
-				throw new BaseException(err100Code, err100Msg, url, httpConn.getResponseCode());
+				String err = IOUtils.readText(httpConn.getErrorStream(), null);
+				throw new NetException(err100Code, err100Msg, url.toString(), httpConn.getResponseCode(), err, httpConn.getHeaderFields(), url.toString(), httpConn.getResponseCode(), httpConn.getHeaderFields(), err);
 			}
 			in = httpConn.getInputStream();
 			return readInputStreamToString(in);
@@ -256,12 +258,12 @@ public class NetUtils {
 	}
 
 	/** @author hcqt@qq.com */
-	public static final URI appendParameter(URL url, Map<String, String[]> parameters, String enc) {
+	public static final URI appendParameter(URL url, Map<String, String[]> parameters, String enc) throws NetException {
 		return appendParameter(url.toString(), parameters, enc);
 	}
 
 	/** @author hcqt@qq.com */
-	public static final URI appendParameter(String url, Map<String, String[]> parameters, String enc) {
+	public static final URI appendParameter(String url, Map<String, String[]> parameters, String enc) throws NetException {
 		if(null == url) {
 			return null;
 		}
@@ -301,7 +303,7 @@ public class NetUtils {
 	}
 
 	/** @author hcqt@qq.com */
-	public static final Map<String, String[]> getParameterMap(String url, String enc, boolean needSequence) {
+	public static final Map<String, String[]> getParameterMap(String url, String enc, boolean needSequence) throws NetException {
 		Map<String, String[]> ret = null;
 		if(needSequence) {
 			ret = new LinkedHashMap<String, String[]>();
@@ -314,7 +316,7 @@ public class NetUtils {
 	
 	/** 对请求参数进行排序，参数都已URL编码
 	 * @author hcqt@qq.com */
-	public static final Map<String, String[]> getParameterMap(HttpServletRequest request, String enc, boolean needSequence) {
+	public static final Map<String, String[]> getParameterMap(HttpServletRequest request, String enc, boolean needSequence) throws NetException {
 		Enumeration<?> enu = request.getParameterNames();
 		Map<String, String[]> oldRequestParam = request.getParameterMap();
 		Map<String, String[]> newRequestParam = null;
@@ -365,7 +367,7 @@ public class NetUtils {
 			data = null;
 			return new String(outStream.toByteArray(), "UTF-8");
 		} catch (IOException e) {
-			throw new BaseException(err99Code, err99Msg, e, e.getMessage());
+			throw new NetException(err99Code, err99Msg, e, e.getMessage());
 		} finally {
 			if(null != outStream) {
 				try { outStream.close(); } catch (IOException e) { }
@@ -374,6 +376,9 @@ public class NetUtils {
 	}
 
 	private static final String urlParamToString(Map<String, Object> urlParam) {
+		if(urlParam == null || urlParam.isEmpty()) {
+			return null;
+		}
 		StringBuilder tmp = new StringBuilder();
 		for (Iterator<Entry<String, Object>> it = urlParam.entrySet().iterator(); it.hasNext();) {
 			Entry<String, Object> entry = it.next();
@@ -398,37 +403,37 @@ public class NetUtils {
 	}
 
 	/** @author hcqt@qq.com */
-	public static final URL uriToUrl(URI uri) {
+	public static final URL uriToUrl(URI uri) throws NetException {
 		if(uri == null) {
 			return null;
 		}
 		try {
 			return uri.toURL();
 		} catch (MalformedURLException e) {
-			throw new BaseException(err98Code, err98Msg, e, e.getMessage());
+			throw new NetException(err98Code, err98Msg, e, e.getMessage());
 		}
 	}
 
 	/** @author hcqt@qq.com */
-	public static final URL strToUrl(String uriOrUrl) {
+	public static final URL strToUrl(String uriOrUrl) throws NetException {
 		try {
 			return new URL(uriOrUrl);
 		} catch (MalformedURLException e) {
-			throw new BaseException(err97Code, err97Msg, e, uriOrUrl);
+			throw new NetException(err97Code, err97Msg, e, uriOrUrl);
 		}
 	}
 
 	/** @author hcqt@qq.com */
-	public static final URI strToUri(String uriOrUrl) {
+	public static final URI strToUri(String uriOrUrl) throws NetException {
 		try {
 			return new URI(uriOrUrl);
 		} catch (URISyntaxException e) {
-			throw new BaseException(err87Code, err87Msg, e, uriOrUrl);
+			throw new NetException(err87Code, err87Msg, e, uriOrUrl);
 		}
 	}
 
 	/** @author hcqt@qq.com */
-	public static final String getUriQuery(String uri) {
+	public static final String getUriQuery(String uri) throws NetException {
 		if(uri == null) {
 			return null;
 		}
@@ -440,7 +445,7 @@ public class NetUtils {
 	}
 
 	/** @author hcqt@qq.com */
-	public static final String getUriQueryOther(String uri) {
+	public static final String getUriQueryOther(String uri) throws NetException {
 		if(uri == null) {
 			return null;
 		}
@@ -452,23 +457,23 @@ public class NetUtils {
 	}
 	
 	private static final void catchException(Throwable e) {
-		if(e instanceof BaseException) {
-			throw (BaseException) e;
+		if(e instanceof NetException) {
+			throw (NetException) e;
 		}
 		if(e instanceof java.net.ConnectException) {
-			throw new BaseException(err96Code, err96Msg, e);
+			throw new NetException(err96Code, err96Msg, e);
 		} 
 		else if(e instanceof java.net.NoRouteToHostException) {
-			throw new BaseException(err95Code, err95Msg, e, e.getMessage());
+			throw new NetException(err95Code, err95Msg, e, e.getMessage());
 		} 
 		else {
-			throw new BaseException(err94Code, err94Msg, e, EU.out(e));
+			throw new NetException(err94Code, err94Msg, e, EU.out(e));
 		}
 	}
 
 
 	public static final String err100Code = "net_utils_58124";
-	public static final String err100Msg = "无法正常连接URL——{0}，URL状态号——{1}";
+	public static final String err100Msg = "无法正常连接URL——{0}，URL状态号——{1}，http头数据——{2}，错误详情——{3}";
 	
 	public static final String err98Code = "net_utils_o2hj3";
 	public static final String err98Msg = "uri书写不符合规范，您的书写——{0}";
@@ -505,7 +510,7 @@ public class NetUtils {
 				try {
 					bytes = data.getBytes(encoding);
 				} catch (UnsupportedEncodingException e) {
-					throw new BaseException("net_utils_kj3hO", "字符串{0}无法转换为字符集{1}", e, data, encoding);
+					throw new NetException("net_utils_kj3hO", "字符串{0}无法转换为字符集{1}", e, data, encoding);
 				}
 				parseParameters(map, bytes, encoding);
 			}
@@ -574,8 +579,63 @@ public class NetUtils {
 			if ((b >= 48) && (b <= 57)) return (byte)(b - 48);
 			if ((b >= 97) && (b <= 102)) return (byte)(b - 97 + 10);
 			if ((b >= 65) && (b <= 70)) return (byte)(b - 65 + 10);
-			throw new BaseException("net_utils_Ke38E", "byte数据{0}无法转换为十六进制数字", b);
+			throw new NetException("net_utils_Ke38E", "byte数据{0}无法转换为十六进制数字", b);
 		}
 	}
-	
+
+	public static class NetException extends BaseException {
+
+		private static final long serialVersionUID = 5129811509705065329L;
+
+		private String url;
+		private Map<String, List<String>> headerFields;
+		private Integer httpCode;
+		private String originalErrorMsg;
+
+		public NetException() {
+			super();
+		}
+
+		public NetException(String code, String message, Object... msgArg) {
+			super(code, message, msgArg);
+		}
+
+		public NetException(String code, String message, Throwable cause, Object... msgArg) {
+			super(code, message, cause, msgArg);
+		}
+		
+		public NetException(String code, String message, String url, Integer httpCode, String originalErrorMsg, Map<String, List<String>> headerFields, Object... msgArg) {
+			super(code, message, msgArg);
+			this.url = url;
+			this.headerFields = headerFields;
+			this.httpCode = httpCode;
+			this.originalErrorMsg = originalErrorMsg;
+		}
+		
+		public NetException(String code, String message, Throwable cause, String url, Integer httpCode, String originalErrorMsg, Map<String, List<String>> headerFields, Object... msgArg) {
+			super(code, message, cause, msgArg);
+			this.url = url;
+			this.headerFields = headerFields;
+			this.httpCode = httpCode;
+			this.originalErrorMsg = originalErrorMsg;
+		}
+		
+		public String getUrl() {
+			return url;
+		}
+
+		public Map<String, List<String>> getHeaderFields() {
+			return headerFields;
+		}
+
+		public Integer getHttpCode() {
+			return httpCode;
+		}
+
+		public String getOriginalErrorMsg() {
+			return originalErrorMsg;
+		}
+		
+	}
+
 }
