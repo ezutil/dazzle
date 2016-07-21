@@ -107,25 +107,32 @@ public class MapUtils {
 
 	/**@author hcqt@qq.com */
 	@SuppressWarnings("unchecked")
-	public static final <T, N extends Map<T, T>> N put(Class<N> clazz, T... oddEvenKeyValPairs) {
+	public static final <K, V> Map<K, V> put(Class<?> clazz, Object... oddEvenKeyValPairs) {
+		if(!Map.class.isAssignableFrom(clazz)) {
+			throw new BaseException("mapUtils_98k3G", "创建Map时您传入的Class类型{0}不符合规范，要求必须是java.util.Map类型", clazz.getName());
+		}
 		if(oddEvenKeyValPairs == null) {
 			return null;
 		}
 		if(oddEvenKeyValPairs.length % 2 != 0) {
 			throw new BaseException("mapUtils_98k3G", "键值对必须成对出现，您传入的数组个数是奇数，不符合规定，异常数据——{0}", Arrays.toString(oddEvenKeyValPairs));
 		}
-		N n;
+		Map<K, V> n;
 		if(clazz.isInterface()) {
-			n = (N) new HashMap<Object, Object>();
+			n = (Map<K, V>) new HashMap<Object, Object>();
 		} else {
 			try {
-				n = clazz.newInstance();
+				n = (Map<K, V>) clazz.newInstance();
 			} catch (Exception e) {
 				throw new BaseException("mapUtils_p2hE3", "map无法实例化，详情——{0}", e, EU.out(e));
 			}
 		}
 		for (int i = 0; i < oddEvenKeyValPairs.length; i+=2) {
-			n.put(oddEvenKeyValPairs[i], oddEvenKeyValPairs[i + 1]);
+			if(oddEvenKeyValPairs[i] instanceof String) {
+				put((Map<String,Object>) n, (String) oddEvenKeyValPairs[i], oddEvenKeyValPairs[i + 1]);
+			} else {
+				n.put((K) oddEvenKeyValPairs[i], (V) oddEvenKeyValPairs[i + 1]);
+			}
 		}
 		return n;
 	}
