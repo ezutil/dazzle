@@ -1,6 +1,7 @@
 package org.dazzle.utils;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.HashMap;
@@ -275,9 +276,7 @@ public class BeanUtils {
 		Method method = null;
 		for (Class<?> currentClass = obj.getClass(); currentClass != Object.class; currentClass = currentClass.getSuperclass()) {
 			try {
-				method = currentClass.getDeclaredMethod(new StringBuilder().append("get")
-						.append(field.substring(0, 1).toUpperCase())
-						.append(field.substring(1)).toString());
+				method = currentClass.getDeclaredMethod(methodName("get", field));
 				return method.invoke(obj);
 			} catch (Throwable e) {
 				try {
@@ -299,21 +298,79 @@ public class BeanUtils {
 		if(null == field) {
 			return;
 		}
-		Method method = null;
 		for (Class<?> currentClass = obj.getClass(); currentClass != Object.class; currentClass = currentClass.getSuperclass()) {
-			try {
-				method = currentClass.getDeclaredMethod(new StringBuilder().append("set")
-						.append(field.substring(0, 1).toUpperCase())
-						.append(field.substring(1)).toString());
-				method.invoke(obj, val);
-			} catch (Throwable e) {
-				try {
-					Field _field = currentClass.getDeclaredField(field);
-					_field.setAccessible(true);
-					_field.set(obj, val);
-				} catch (Throwable e2) { }
-			}
+			setField(currentClass, obj, field, val);
 		}
+	}
+
+	private static final void setField(Class<?> currentClass, Object obj, String fieldName, Object val) {
+		Class<?> fieldType = getFieldType(currentClass, fieldName);
+		Method method = null;
+		try {
+			method = currentClass.getDeclaredMethod(methodName("set", fieldName), fieldType);
+		} catch (NoSuchMethodException e) {
+			reflectSetField(currentClass, obj, fieldName, val);
+			return;
+		} catch (SecurityException e) {
+			reflectSetField(currentClass, obj, fieldName, val);
+			return;
+		}
+		try {
+			method.invoke(obj, DTU.cvt(fieldType, val));
+		} catch (IllegalAccessException e) {
+			reflectSetField(currentClass, obj, fieldName, val);
+			return;
+		} catch (IllegalArgumentException e) {
+			reflectSetField(currentClass, obj, fieldName, val);
+			return;
+		} catch (InvocationTargetException e) {
+			reflectSetField(currentClass, obj, fieldName, val);
+			return;
+		}
+	}
+
+	private static final void reflectSetField(Class<?> currentClass, Object obj, String fieldName, Object fieldVal) {
+		Field _field = getField(currentClass, fieldName);
+		if(_field == null) {
+			return;
+		}
+		try {
+			_field.setAccessible(true);
+		} catch(SecurityException e) {
+		}
+		try {
+			_field.set(obj, DTU.cvt(_field.getType(), fieldVal));
+		} catch (Throwable e) {
+		}
+	}
+
+	private static final Class<?> getFieldType(Class<?> clazz, String fieldName) {
+		Field _field = getField(clazz, fieldName);
+		if(_field == null) {
+			return Object.class;
+		}
+		return getFieldType(_field);
+	}
+
+	private static final Field getField(Class<?> clazz, String fieldName) {
+		try {
+			return clazz.getDeclaredField(fieldName);
+		} catch (NoSuchFieldException e) {
+			return null;
+		} catch (SecurityException e) {
+			return null;
+		}
+	}
+
+	private static final Class<?> getFieldType(Field field) {
+		if(field == null) {
+			return Object.class;
+		}
+		return field.getType();
+	}
+
+	private static final String methodName(String prefix, String fieldName) {
+		return new StringBuilder().append(prefix).append(fieldName.substring(0, 1).toUpperCase()).append(fieldName.substring(1)).toString();
 	}
 
 }
