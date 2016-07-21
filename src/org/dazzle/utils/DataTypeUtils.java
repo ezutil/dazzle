@@ -1,3 +1,4 @@
+
 package org.dazzle.utils;
 
 import java.lang.reflect.Array;
@@ -1444,8 +1445,16 @@ public class DataTypeUtils {
 					return (Date) targetObject;
 				}
 				else if(targetObject instanceof String) {
-					try { return DU.parse((String) targetObject, datePattern1); } 
-					catch (BaseException e) { }
+					String dateStr = formatDateStr((String) targetObject);
+					for (String _datePattern : datePattern) {
+						try { return DU.parse(dateStr, _datePattern); } catch (BaseException e) { }
+					}
+					throw new DataTypeException(
+							"dateTypeUtils_8k93I", 
+							"无法把数据类型为“{0}”的数据“{1}”转换到枚举类型“{2}”", 
+							targetObject.getClass().getName(), 
+							targetObject, 
+							Date.class);
 				}
 			}
 			// 注意此处不用else if的原因是由于存在2011.11这种既是日期又是数字的情况，所以不能用else if做互斥代码
@@ -1456,7 +1465,18 @@ public class DataTypeUtils {
 			throw CatchDataTypeException.returnCouldNotConvertException(Date.class, targetObject);
 		}
 
+		private static final String formatDateStr(String dateStr) {
+			if(dateStr == null) {
+				return null;
+			}
+			return dateStr.replace("/", "-").replace(".", "-").replace("\\", "-");
+		}
+	
 		private static final String datePattern1 = "yyyy-MM-dd HH:mm:ss";
+		private static final String datePattern2 = "yyyy-MM-dd";
+		private static final String datePattern3 = "HH:mm:ss";
+
+		private static final String[] datePattern = { datePattern1, datePattern2, datePattern3 };
 
 	}
 
