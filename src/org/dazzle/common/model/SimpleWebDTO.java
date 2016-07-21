@@ -103,6 +103,9 @@ public class SimpleWebDTO implements WebDTO {
 	/** @author hcqt@qq.com */
 	@Override
 	public WebDTO set(Map<String, Object> codes) {
+		if(codes == null) {
+			return this;
+		}
 		this.codes.putAll(codes);
 		return this;
 	}
