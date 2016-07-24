@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>io.github.ezutil</groupId>
 	<artifactId>dazzle</artifactId>
-	<version>0.0.1</version>
+	<version>0.0.2</version>
 	<name>dazzle</name>
 	<url>https://ezutil.github.io/dazzle</url>
 	<description>Simple and fast, so that the developer's focus on business logic</description>
