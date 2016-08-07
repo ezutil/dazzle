@@ -1,6 +1,6 @@
 package org.dazzle.utils;
 
-/**本软件为开源项目，最新项目发布于github，可提交您的代码到本开源软件，项目网址：<a href="https://github.com/hcqt/dazzle">https://github.com/hcqt/dazzle</a><br />
+/**本软件为开源项目，最新项目发布于github，可提交您的代码到本开源软件，项目网址：<a href="https://github.com/ezutil/dazzle">https://github.com/ezutil/dazzle</a><br />
  * 本软件内的大多数方法禁止Override，原因是作者提倡组合，而非继承，如果您确实需要用到继承，而又希望用本软件提供的方法名称与参数列表，建议您自行采用适配器设计模式，逐个用同名方法包裹本软件所提供的方法，这样您依然可以使用继承
  * @author hcqt@qq.com*/
 public class StringUtils {
@@ -105,11 +105,23 @@ public class StringUtils {
 	public static final String subStringBefore(String str, String separator, Integer num) {
 		return subStringBefore(str, separator, num, false);
 	}
+	
+	/**@see #subStringBefore(String, String, Integer, boolean)
+	 * @author hcqt@qq.com*/
+	public static final String subStringBefore(String str, String separator) {
+		return subStringBefore(str, separator, 1, false);
+	}
 
 	/**@see #subStringBefore(String, String, Integer, boolean)
 	 * @author hcqt@qq.com*/
 	public static final String subStringAfter(String str, String separator, Integer num) {
 		return subStringAfter(str, separator, num, false);
+	}
+	
+	/**@see #subStringBefore(String, String, Integer, boolean)
+	 * @author hcqt@qq.com*/
+	public static final String subStringAfter(String str, String separator) {
+		return subStringAfter(str, separator, 1, false);
 	}
 
 	/**@see #subStringBefore(String, String, Integer, boolean)
@@ -117,11 +129,35 @@ public class StringUtils {
 	public static final String subStringBeforeIgnoreCase(String str, String separator, Integer num) {
 		return subStringBefore(str, separator, num, true);
 	}
-
+	
 	/**@see #subStringBefore(String, String, Integer, boolean)
+	 * @author hcqt@qq.com*/
+	public static final String subStringBeforeIgnoreCase(String str, String separator) {
+		return subStringBefore(str, separator, 1, true);
+	}
+
+	/**@see #subStringAfter(String, String, Integer, boolean)
 	 * @author hcqt@qq.com*/
 	public static final String subStringAfterIgnoreCase(String str, String separator, Integer num) {
 		return subStringAfter(str, separator, num, true);
+	}
+	
+	/**@see #subStringAfter(String, String, Integer, Boolean)
+	 * @author hcqt@qq.com*/
+	public static final String subStringAfterIgnoreCase(String str, String separator) {
+		return subStringAfter(str, separator, 1, true);
+	}
+	
+	/**@see #subString(String, String, Integer, Integer, Boolean)
+	 * @author hcqt@qq.com*/
+	public static final String subString(String str, String separator, Integer stratNum, Integer endNum) {
+		return subString(str, separator, stratNum, endNum, false);
+	}
+	
+	/**@see #subString(String, String, Integer, Integer, Boolean)
+	 * @author hcqt@qq.com*/
+	public static final String subStringIgnoreCase(String str, String separator, Integer stratNum, Integer endNum) {
+		return subString(str, separator, stratNum, endNum, true);
 	}
 
 	/**统计目标字符串在源字符串中共出现多少次<br>
@@ -335,6 +371,25 @@ public class StringUtils {
 		} else {
 			return str.substring(i + separator.length());
 		}
+	}
+
+	public static final String subString(String str, String separator, Integer stratNum, Integer endNum, Boolean ignoreCase) {
+		if(str == null || separator == null || stratNum == null || endNum == null) {
+			return null;
+		}
+		int startIndex = indexOf(str, separator, stratNum, ignoreCase);
+		if(startIndex == -1) {
+			return null;
+		}
+		startIndex = startIndex + separator.length();
+		int endIndex = indexOf(str, separator, endNum, ignoreCase);
+		if(endIndex == -1) {
+			return null;
+		}
+		if(startIndex >= endIndex) {
+			return null;
+		}
+		return str.substring(startIndex, endIndex);
 	}
 
 }
