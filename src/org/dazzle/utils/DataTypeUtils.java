@@ -1451,7 +1451,7 @@ public class DataTypeUtils {
 					}
 					throw new DataTypeException(
 							"dateTypeUtils_8k93I", 
-							"无法把数据类型为“{0}”的数据“{1}”转换到枚举类型“{2}”", 
+							"无法把数据类型为“{0}”的数据“{1}”转换到时间类型“{2}”", 
 							targetObject.getClass().getName(), 
 							targetObject, 
 							Date.class);
@@ -1475,8 +1475,11 @@ public class DataTypeUtils {
 		private static final String datePattern1 = "yyyy-MM-dd HH:mm:ss";
 		private static final String datePattern2 = "yyyy-MM-dd";
 		private static final String datePattern3 = "HH:mm:ss";
+		private static final String datePattern4 = "yyyy-MM";
+		private static final String datePattern5 = "HH:mm";
+		private static final String datePattern6 = "yyyy-MM HH:mm";
 
-		private static final String[] datePattern = { datePattern1, datePattern2, datePattern3 };
+		private static final String[] datePattern = { datePattern1, datePattern2, datePattern3, datePattern4, datePattern5, datePattern6};
 
 	}
 
