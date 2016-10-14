@@ -28,7 +28,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.dazzle.common.exception.BaseException;
 
-/**本软件为开源项目，最新项目发布于github，可提交您的代码到本开源软件，项目网址：<a href="https://github.com/hcqt/dazzle">https://github.com/hcqt/dazzle</a><br />
+/**本软件为开源项目，最新项目发布于github，可提交您的代码到本开源软件，项目网址：<a href="https://github.com/ezutil/dazzle">https://github.com/ezutil/dazzle</a><br />
  * 本软件内的大多数方法禁止Override，原因是作者提倡组合，而非继承，如果您确实需要用到继承，而又希望用本软件提供的方法名称与参数列表，建议您自行采用适配器设计模式，逐个用同名方法包裹本软件所提供的方法，这样您依然可以使用继承
  * @author hcqt@qq.com*/
 public class NetUtils {
@@ -411,6 +411,8 @@ public class NetUtils {
 			return uri.toURL();
 		} catch (MalformedURLException e) {
 			throw new NetException(err98Code, err98Msg, e, e.getMessage());
+		} catch (IllegalArgumentException e) {
+			throw new NetException("net_utils_9j3nJ", "{0}存在URI语法错误，详情——{1}", e, uri, e.getMessage());
 		}
 	}
 
