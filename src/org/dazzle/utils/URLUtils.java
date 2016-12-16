@@ -7,7 +7,7 @@ import java.util.Map;
 
 import org.dazzle.common.exception.BaseException;
 
-/**本软件为开源项目，最新项目发布于github，可提交您的代码到本开源软件，项目网址：<a href="https://github.com/hcqt/dazzle">https://github.com/hcqt/dazzle</a><br />
+/**本软件为开源项目，最新项目发布于github，可提交您的代码到本开源软件，项目网址：<a href="https://github.com/ezutil/dazzle">https://github.com/ezutil/dazzle</a><br />
  * 本软件内的大多数方法禁止Override，原因是作者提倡组合，而非继承，如果您确实需要用到继承，而又希望用本软件提供的方法名称与参数列表，建议您自行采用适配器设计模式，逐个用同名方法包裹本软件所提供的方法，这样您依然可以使用继承
  * @see #get(Class, Map, String)
  * @author hcqt@qq.com*/
@@ -41,19 +41,16 @@ public final class URLUtils {
 				throw new BaseException(msg1Code, msg1);
 			}
 			try {
-//				return baseUrl.toURI().resolve(uriString.substring(uriString.toLowerCase().indexOf(SCHEME_CLASSPATH) + SCHEME_CLASSPATH.length() + 1));
-				return baseUrl.toURI().resolve(SU.deletePrefix(uri.getPath(), "/"));
+				String uriStr = uri.getSchemeSpecificPart();
+				for (int i = SU.indexOf(uriStr, "/", 1, true); i == -1 || i == 0; i = SU.indexOf(uriStr, "/", 1, true)) {
+					uriStr = SU.deletePrefix(uriStr, "/");
+				}
+				return baseUrl.toURI().resolve(uriStr);
 			} catch (URISyntaxException e) {
 				throw new BaseException(msg2Code, msg2, e, baseUrl, EU.out(e));
 			}
 		}
 		return uri;
 	}
-	
-	public static void main(String[] args) throws URISyntaxException {
-//		System.out.println(resolve(URI.create("http://www.baidu.com")));
-//		System.out.println(resolve(URI.create("classpath:/spring/x.xml")));
-		System.out.println(resolve(URI.create("classpath:spring/x.xml")));
-//		System.out.println(NetUtils.class.getResource("/").toURI().resolve("spring/x.xml"));
-	}
+
 }
