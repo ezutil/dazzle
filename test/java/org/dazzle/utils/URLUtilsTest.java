@@ -53,5 +53,39 @@ public class URLUtilsTest {
 		URI uri = URI.create("classpath:/../a/b");
 		System.out.println(URLUtils.resolve(uri));
 	}
+	
+	@Test
+	public void test9() {
+		URI uri = URI.create("http://www.google.com:8080/index.html");
+		System.out.println(URLUtils.resolve(uri));
+	}
+	
+	@Test
+	public void test10() {
+		URI uri = URLUtils.create("classpath:../a/b");
+		System.out.println(URLUtils.resolve(uri));
+	}
+	
+	@Test
+	public void test11() {
+		URI uri = URLUtils.create("classpath:./a/b");
+		System.out.println(uri);
+	}
+	
+	@Test
+	public void test12() {
+		URI uri = URLUtils.create("classpath:.\\a\\b");
+		System.out.println(uri);
+	}
+	
+	@Test
+	public void test13() {
+		System.out.println(URLUtils.resolve("classpath:.\\a\\b"));
+	}
+	
+	@Test
+	public void test14() {
+		System.out.println(URLUtils.resolve("classpath:.\\a\\中文/目录"));
+	}
 
 }

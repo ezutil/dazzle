@@ -53,4 +53,22 @@ public final class URLUtils {
 		return uri;
 	}
 
+	/**@see #create(String)
+	 * @see #resolve(URI)
+	 * @author hcqt@qq.com*/
+	public static final URI resolve(final String uri) {
+		return resolve(create(uri));
+	}
+
+	/**JDK自带URI.create的升级，自动兼容空值以及转义“\”字符
+	 * @see #resolve(URI)
+	 * @author hcqt@qq.com */
+	public static final URI create(String uri) {
+		if(uri == null || uri.trim().isEmpty()) {
+			return null;
+		}
+		uri = uri.replace('\\', '/');
+		return URI.create(uri);
+	}
+
 }
