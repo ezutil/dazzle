@@ -12,7 +12,7 @@ import org.dazzle.common.exception.BaseException;
  * @see #get(Class, Map, String)
  * @author hcqt@qq.com*/
 public class URLUtils {
-	
+
 	private static final String msg1Code = "SER_COMMON_CLASSPATH_km3Ns";
 	private static final String msg1 = "无法获取程序的classpath路径";
 	
