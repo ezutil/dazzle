@@ -30,4 +30,28 @@ public class URLUtilsTest {
 		System.out.println(URLUtils.resolve(uri));
 	}
 
+	@Test
+	public void test5() {
+		URI uri = URI.create("classpath:../../a/b");
+		System.out.println(URLUtils.resolve(uri));
+	}
+
+	@Test
+	public void test6() {
+		URI uri = URI.create("classpath:./../a/b");
+		System.out.println(URLUtils.resolve(uri));
+	}
+
+	@Test
+	public void test7() {
+		URI uri = URI.create("classpath:../a/b");
+		System.out.println(URLUtils.resolve(uri));
+	}
+
+	@Test
+	public void test8() {
+		URI uri = URI.create("classpath:/../a/b");
+		System.out.println(URLUtils.resolve(uri));
+	}
+
 }
