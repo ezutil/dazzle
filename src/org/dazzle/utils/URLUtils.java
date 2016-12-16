@@ -11,7 +11,7 @@ import org.dazzle.common.exception.BaseException;
  * 本软件内的大多数方法禁止Override，原因是作者提倡组合，而非继承，如果您确实需要用到继承，而又希望用本软件提供的方法名称与参数列表，建议您自行采用适配器设计模式，逐个用同名方法包裹本软件所提供的方法，这样您依然可以使用继承
  * @see #get(Class, Map, String)
  * @author hcqt@qq.com*/
-public final class URLUtils {
+public class URLUtils {
 	
 	private static final String msg1Code = "SER_COMMON_CLASSPATH_km3Ns";
 	private static final String msg1 = "无法获取程序的classpath路径";
@@ -20,6 +20,9 @@ public final class URLUtils {
 	private static final String msg2 = "把输入流写入指定URI:{0}的时候，发现未捕获异常，详情——{1}";
 
 	public static final String SCHEME_CLASSPATH = "classpath";
+
+	/**@author hcqt@qq.com*/
+	URLUtils(){ super(); };
 
 	/**@see #resolve(URI)
 	 * @author hcqt@qq.com */
