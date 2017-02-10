@@ -469,7 +469,11 @@ public class IOUtils {
 		}
 		
 		private static final String read(InputStream inputStream, String lineEndSeparator, String charsetName) {
-			return read0(inputStream, lineEndSeparator, charsetName).toString();
+			StringBuilder sb = read0(inputStream, lineEndSeparator, charsetName);
+			if(sb == null) {
+				return null;
+			}
+			return sb.toString();
 		}
 		
 		private static final void read(byte[] inStrByte, String charsetName, ReadRow readRow) {
@@ -545,6 +549,9 @@ public class IOUtils {
 		}
 		
 		private static final StringBuilder read0(InputStream inputStream, String lineEndSeparator, String charsetName) {
+			if(inputStream == null) {
+				return null;
+			}
 			InputStreamReader inputStreamReader = null;
 			BufferedReader bufferedReader = null;
 			try {
