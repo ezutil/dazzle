@@ -87,5 +87,20 @@ public class URLUtilsTest {
 	public void test14() {
 		System.out.println(URLUtils.resolve("classpath:.\\a\\中文/目录"));
 	}
+	
+	@Test
+	public void test15() {
+		System.out.println(URLUtils.resolve("classpath:a.txt"));
+	}
+	
+	@Test
+	public void test16() {
+		System.out.println(URLUtils.resolve("classpath:./a.txt"));
+	}
+	
+	@Test
+	public void test17() {
+		System.out.println(URLUtils.resolve("classpath:../a.txt"));
+	}
 
 }

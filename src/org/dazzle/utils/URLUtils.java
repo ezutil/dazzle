@@ -45,7 +45,7 @@ public class URLUtils {
 			}
 			try {
 				String uriStr = uri.getSchemeSpecificPart();
-				for (int i = SU.indexOf(uriStr, "/", 1, true); i == -1 || i == 0; i = SU.indexOf(uriStr, "/", 1, true)) {
+				for (int i = SU.indexOf(uriStr, "/", 1, true); i == 0; i = SU.indexOf(uriStr, "/", 1, true)) {
 					uriStr = SU.deletePrefix(uriStr, "/");
 				}
 				return baseUrl.toURI().resolve(uriStr);
