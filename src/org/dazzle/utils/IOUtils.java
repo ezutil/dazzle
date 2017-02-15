@@ -35,27 +35,27 @@ public class IOUtils {
 
 	/** @author hcqt@qq.com */
 	public static final String readText(String filePath) {
-		return RDText.read(filePath, (String) null, (String) null);
+		return RDText.read(filePath, "\r\n", (String) null);
 	}
 
 	public static final String readText(URI filePath) {
-		return RDText.read(filePath, (String) null, (String) null);
+		return RDText.read(filePath, "\r\n", (String) null);
 	}
 	
 	public static final String readText(URL filePath) {
-		return RDText.read(filePath, (String) null, (String) null);
+		return RDText.read(filePath, "\r\n", (String) null);
 	}
 	
 	public static final String readText(byte[] inByte) {
-		return RDText.read(inByte, (String) null, (String) null);
+		return RDText.read(inByte, "\r\n", (String) null);
 	}
 	
 	public static final String readText(InputStream inputStream) {
-		return RDText.read(inputStream, (String) null, (String) null);
+		return RDText.read(inputStream, "\r\n", (String) null);
 	}
 	
 	public static final String readText(File file) {
-		return RDText.read(file, (String) null, (String) null);
+		return RDText.read(file, "\r\n", (String) null);
 	}
 
 	/** @author hcqt@qq.com */
@@ -684,16 +684,24 @@ public class IOUtils {
 		
 		private static final String read(InputStream inputStream, final String lineEndSeparator, String charsetName) {
 			final StringBuilder sb = new StringBuilder();
+			final boolean[] flag = new boolean[] { false };
 			read(inputStream, charsetName, new ReadRow() {
 				@Override
 				public boolean read(String rowText, int rowNum) {
 					sb.append(rowText);
 					if(lineEndSeparator != null) {
 						sb.append(lineEndSeparator);
+						flag[0] = true;
 					}
 					return true;
 				}
 			});
+			if(lineEndSeparator != null && flag[0]) {
+				int start = sb.length()-lineEndSeparator.length();
+				if(start >= 0) {
+					sb.delete(sb.length()-lineEndSeparator.length(), sb.length());
+				}
+			}
 			return sb.toString();
 		}
 		
