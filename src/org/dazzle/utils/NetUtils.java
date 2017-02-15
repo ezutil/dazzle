@@ -241,7 +241,7 @@ public class NetUtils {
 			}
 			in = httpConn.getInputStream();
 			return readInputStreamToString(in);
-		} catch (Exception e) {			
+		} catch (Exception e) {
 			catchException(e);
 			return null;
 		} finally {

@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>io.github.ezutil</groupId>
 	<artifactId>dazzle</artifactId>
-	<version>1.0.1</version>
+	<version>1.0.2</version>
 	<name>dazzle</name>
 	<url>https://ezutil.github.io/dazzle</url>
 	<description>Simple and fast, so that the developer's focus on business logic</description>
@@ -71,11 +71,6 @@
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 			<version>3.0.1</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-			<version>2.4</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>

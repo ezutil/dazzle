@@ -7,6 +7,28 @@ import org.junit.Test;
 public class URLUtilsTest {
 
 	@Test
+	public void test18() {
+		try {
+			URI uri = UU.resolve("classpath:/D:/a/b/c/b.txt");
+			System.out.println(uri);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		try {
+			URI uri = UU.resolve("classpath:/Dxx:/a/b/c/b.txt");
+			System.out.println(uri);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		try {
+			URI uri = UU.resolve("classpath:/D/a/b/c/b.txt");
+			System.out.println(uri);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
 	public void test1() {
 		URI uri = URI.create("classpath://////a/b");
 		System.out.println(URLUtils.resolve(uri));
