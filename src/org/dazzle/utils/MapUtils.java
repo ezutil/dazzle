@@ -156,60 +156,33 @@ public class MapUtils {
 		if(!(express instanceof String)) {
 			return map.put(express, val);
 		}
-		String[] keys = ((String) express).split("\\.");
-		if(keys == null) {
-			return null;
-		}
-		if(keys.length <= 0) {
-			return null;
-		}
 		if(newMapType == null) {
 			newMapType = HashMap.class;
 		}
-		if(keys.length == 1) {
-			return map.put((K) keys[0], val);
-		} 
-		else if(keys.length == 2) {
-			Object mapVal = map.get(keys[0]);
-			if(null == mapVal || !Map.class.isAssignableFrom(mapVal.getClass())) {
-				Map<K, V> newMap = put0(newMapType); 
-				map.put((K) keys[0], (V) newMap);
-				return newMap.put((K) keys[1], val);
-			} 
-			else {
-				Map<String, Object> tmp = (Map<String, Object>) mapVal;
-				return tmp.put(keys[1], val);
+		String currentLevelKey = SU.subStringBefore(DTU.cvt(String.class, express) , ".");
+		// 如果表达式不存在点号前边的值，说明已经到达最后一级，则把val追加到map中，如果不能追加就覆盖
+		if(currentLevelKey == null) {
+			V nextLevelVal = map.get(express);
+			if(!(val instanceof Map) || !(nextLevelVal instanceof Map)) {
+				// 覆盖
+				return map.put(express, val);
+			} else {
+				// 追加
+				((Map<K, V>) nextLevelVal).putAll((Map<K, V>) val);
+				return null;
 			}
 		}
-		else {
-			V mapVal = null;
-			V prevVal = null;
-			for (int i = 0; i < keys.length; i++) {
-				// 判断是否到了最后一级节点
-				if(i == keys.length -1) {
-					return map.put((K) keys[i], val);
-				}
-				mapVal = map.get(keys[i]);
-				if(null == map.get(keys[i])) {
-					// 目的是要获取下一级节点的类型，然后递归往下找到最后一级，然后按照指定的key把val进行put
-					// 如果下一级节点是空的，那么说明下一级节点根本没有定义过，那么用户肯定是要创建不存在的节点，逐级向下创建，到最后一级节点的时候不再创建map，而是put val
-					// 如果下一级节点 不是空的，但是类型不是map，那就无法继续向下递归，所以直接把下一级节点的类型强制改成map，然后逐级向下创建
-					// 如果下一级节点就是map，那么get其数据，把get出来的map作为基础继续向下递归，直到最后一级的时候，进行put val
-					mapVal = (V) put0(newMapType);
-					prevVal = map.put((K) keys[i], mapVal);
-					map = (Map<K, V>) mapVal;
-				}
-				else if(!Map.class.isAssignableFrom(mapVal.getClass())) {
-					mapVal = (V) put0(newMapType);
-					prevVal = map.put((K) keys[i], mapVal);
-					map = (Map<K, V>) mapVal;
-				}
-				else {
-					map = (Map<K, V>) mapVal;
-				}
-			}
-			return prevVal;
+		// 如果还存在下一级，先检查当前这一级是否存在，如果存在，方可进入下一级put，如果这一级不存在，就创建这一级，然后进入下一级put，到最后一级时候return
+		String nextLevelKeys = SU.subStringAfter(DTU.cvt(String.class, express) , ".");
+		V currentLevelVal = map.get(currentLevelKey);
+		if(
+				currentLevelVal == null // 如果下一级不存在就创建一个map放到下一级
+				|| !(currentLevelVal instanceof Map) // 如果下一级不是map就覆盖
+				) {
+			currentLevelVal = (V) put0(newMapType);
+			map.put((K) currentLevelKey, currentLevelVal);
 		}
+		return put((Map<K, V>) currentLevelVal, (K) nextLevelKeys, val, newMapType);
 	}
 
 	/** @author hcqt@qq.com */
