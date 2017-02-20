@@ -1,5 +1,11 @@
 package org.dazzle.utils;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.SortedMap;
+import java.util.TreeMap;
+
 /**本软件为开源项目，最新项目发布于github，可提交您的代码到本开源软件，项目网址：<a href="https://github.com/ezutil/dazzle">https://github.com/ezutil/dazzle</a><br />
  * 本软件内的大多数方法禁止Override，原因是作者提倡组合，而非继承，如果您确实需要用到继承，而又希望用本软件提供的方法名称与参数列表，建议您自行采用适配器设计模式，逐个用同名方法包裹本软件所提供的方法，这样您依然可以使用继承
  * @author hcqt@qq.com*/
@@ -390,6 +396,53 @@ public class StringUtils {
 			return null;
 		}
 		return str.substring(startIndex, endIndex);
+	}
+
+	public static final String[] split(String str, String separator) {
+		return split(str, new String[] { separator }, false);
+	}
+
+	public static final String[] split(String str, String[] separators, Boolean ignoreCase) {
+		if(str == null) {
+			return null;
+		}
+		if(separators == null) {
+			return new String[]{str};
+		}
+		SortedMap<Integer, String> separatorIndexMapping = new TreeMap<Integer, String>(new Comparator<Integer>() {
+			@Override
+			public int compare(Integer o1, Integer o2) {
+				if(o1 == null || o2 == null) {
+					return 0;
+				}
+				return o1.compareTo(o2);
+			}
+		});
+		for (String separator : separators) {
+			for (int i = 1; ; i++) {
+				int index = indexOf(str, separator, i, ignoreCase);
+				if(index == -1) {
+					break;
+				}
+				separatorIndexMapping.put(index, separator);
+			}
+		}
+		int start = 0;
+		List<String> ret = new ArrayList<String>();
+		for (Integer index : separatorIndexMapping.keySet()) {
+			ret.add(str.substring(start, index));
+			start = index + separatorIndexMapping.get(index).length();
+		}
+		// 最后一个分隔符后边的内容在循环外补，以提高循环效率
+		ret.add(str.substring(start, str.length()));
+		if(ret.isEmpty()) {
+			return null;
+		}
+		return DTU.cvt(String[].class, ret);
+	}
+
+	public static final String[] split(String str, String separator, Boolean ignoreCase) {
+		return split(str, new String[]{ separator }, ignoreCase);
 	}
 
 }
