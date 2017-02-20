@@ -27,7 +27,7 @@ public class JsonUtils {
      * 普通类型将转换为String<br />
      * 若json为数组与键值对嵌套，将会转换为list与map嵌套，嵌套不限层级
      * @author hcqt@qq.com */
-    public static Object toObj(final String jsonString) {
+    public static final Object toObj(String jsonString) {
         if(jsonString != null) {
             return toObj0(new JsonParser().parse(jsonString), null, null);
         } else {
@@ -36,15 +36,16 @@ public class JsonUtils {
     }
 
     /** hcqt@qq.com */
-    public static Object toObj(String jsonString, @SuppressWarnings("rawtypes") Class listClazz, @SuppressWarnings("rawtypes") Class mapClazz) {
+    public static final Object toObj(String jsonString, @SuppressWarnings("rawtypes") Class listClazz, @SuppressWarnings("rawtypes") Class mapClazz) {
         return toObj0(new JsonParser().parse(jsonString), listClazz, mapClazz);
     }
 
     /**一些dom4j、response等流对象无法转换
      * @author hcqt@qq.com */
-    public static String toJson(Object obj) {
+    public static final String toJson(Object obj) {
         if(obj == null) {
-            throw new BaseException("json_convert_3ghc", "obj参数不能为空");
+//            throw new BaseException("json_convert_3ghc", "obj参数不能为空");
+        	return null;
         }
         return new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").disableHtmlEscaping().create().toJson(obj);
     }
