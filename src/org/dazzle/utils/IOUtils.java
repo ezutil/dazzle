@@ -699,7 +699,7 @@ public class IOUtils {
 			if(lineEndSeparator != null && flag[0]) {
 				int start = sb.length()-lineEndSeparator.length();
 				if(start >= 0) {
-					sb.delete(sb.length()-lineEndSeparator.length(), sb.length());
+					sb.delete(start, sb.length());
 				}
 			}
 			return sb.toString();
