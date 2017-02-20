@@ -59,6 +59,36 @@ public class IOUtils {
 	}
 
 	/** @author hcqt@qq.com */
+	public static String readText(byte[] inByte, String charsetName) {
+		return RDText.read(inByte, "\r\n", charsetName);
+	}
+
+	/** @author hcqt@qq.com */
+	public static String readText(String uriStr, String charsetName) {
+		return RDText.read(uriStr, "\r\n", charsetName);
+	}
+
+	/** @author hcqt@qq.com */
+	public static String readText(URI uri, String charsetName) {
+		return RDText.read(uri, "\r\n", charsetName);
+	}
+
+	/** @author hcqt@qq.com */
+	public static String readText(URL url, String charsetName) {
+		return RDText.read(url, "\r\n", charsetName);
+	}
+
+	/** @author hcqt@qq.com */
+	public static String readText(InputStream inputStream, String charsetName) {
+		return RDText.read(inputStream, "\r\n", charsetName);
+	}
+
+	/** @author hcqt@qq.com */
+	public static String readText(File file, String charsetName) {
+		return RDText.read(file, "\r\n", charsetName);
+	}
+
+	/** @author hcqt@qq.com */
 	public static String readText(String filePath, String lineEndSeparator, String charsetName) {
 		return RDText.read(filePath, lineEndSeparator, charsetName);
 	}
@@ -86,36 +116,6 @@ public class IOUtils {
 	/** @author hcqt@qq.com */
 	public static String readText(File file, String lineEndSeparator, String charsetName) {
 		return RDText.read(file, lineEndSeparator, charsetName);
-	}
-
-	/** @author hcqt@qq.com */
-	public static String readText(byte[] inByte, String charsetName) {
-		return RDText.read(inByte, "", charsetName);
-	}
-
-	/** @author hcqt@qq.com */
-	public static String readText(String uriStr, String charsetName) {
-		return RDText.read(uriStr, "", charsetName);
-	}
-
-	/** @author hcqt@qq.com */
-	public static String readText(URI uri, String charsetName) {
-		return RDText.read(uri, "", charsetName);
-	}
-
-	/** @author hcqt@qq.com */
-	public static String readText(URL url, String charsetName) {
-		return RDText.read(url, "", charsetName);
-	}
-
-	/** @author hcqt@qq.com */
-	public static String readText(InputStream inputStream, String charsetName) {
-		return RDText.read(inputStream, "", charsetName);
-	}
-
-	/** @author hcqt@qq.com */
-	public static String readText(File file, String charsetName) {
-		return RDText.read(file, "", charsetName);
 	}
 
 	/** @author hcqt@qq.com */
