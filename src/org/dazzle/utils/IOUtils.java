@@ -830,6 +830,9 @@ public class IOUtils {
 //		}
 		
 		private static final void read(InputStream inputStream, String charsetName, ReadRow readRow) {
+			if(inputStream == null) {
+				return;
+			}
 			InputStreamReader inputStreamReader = null;
 			BufferedReader bufferedReader = null;
 			try {
