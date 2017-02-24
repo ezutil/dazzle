@@ -13,10 +13,19 @@ import org.dazzle.common.exception.BaseException;
 /** @author hcqt@qq.com */
 public class CloneUtils {
 
-	/** 深拷贝对象，建议要拷贝的对象实现java.io.Serializable接口
-	 * @author hcqt@qq.com */
-    @SuppressWarnings("unchecked")
+	/** @author hcqt@qq.com */
 	public static final <T> T clone(T src) {
+    	try {
+    		return deepClone(src);
+    	} catch (Throwable e) {
+    		return simpleClone(src);
+    	}
+    }
+
+    /** 深拷贝对象，需要对象实现java.io.Serializable接口
+     * @author hcqt@qq.com */
+    @SuppressWarnings("unchecked")
+	public static final <T> T deepClone(T src) {
 		ByteArrayOutputStream byteout = new ByteArrayOutputStream();
 		ObjectOutputStream out = null;
 		ByteArrayInputStream bytein = null;
@@ -48,17 +57,17 @@ public class CloneUtils {
 			}
 			return dest;
 		} finally {
-			if(byteout != null) {
-				try { byteout.close(); } catch (IOException e) { }
-			}
 			if(out != null) {
-				try { out.close(); } catch (IOException e) { }
+				try { out.close(); } catch (Throwable e) { }
 			}
 			if(bytein != null) {
-				try { bytein.close(); } catch (IOException e) { }
+				try { bytein.close(); } catch (Throwable e) { }
 			}
 			if(in != null) {
-				try { in.close(); } catch (IOException e) { }
+				try { in.close(); } catch (Throwable e) { }
+			}
+			if(byteout != null) {
+				try { byteout.close(); } catch (Throwable e) { }
 			}
 		}
     }
