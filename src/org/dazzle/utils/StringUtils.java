@@ -379,6 +379,7 @@ public class StringUtils {
 		}
 	}
 
+	/**@author hcqt@qq.com*/
 	public static final String subString(String str, String separator, Integer stratNum, Integer endNum, Boolean ignoreCase) {
 		if(str == null || separator == null || stratNum == null || endNum == null) {
 			return null;
@@ -398,16 +399,54 @@ public class StringUtils {
 		return str.substring(startIndex, endIndex);
 	}
 
+	/**@author hcqt@qq.com*/
 	public static final String[] split(String str, String separator) {
 		return split(str, new String[] { separator }, false);
 	}
 
+	/**@author hcqt@qq.com*/
+	public static final String[] split(String str, String separator, Boolean ignoreCase) {
+		return split(str, new String[]{ separator }, ignoreCase);
+	}
+
+	/**@author hcqt@qq.com*/
 	public static final String[] split(String str, String[] separators, Boolean ignoreCase) {
-		if(str == null) {
+		final List<String> ret = new ArrayList<String>();
+		split(str, separators, ignoreCase, new Split() {
+			@Override
+			public boolean read(
+					String currentSplitBulk, 
+					String currentSeparator, 
+					int currentSeparatorStartIndex,
+					int currentSeparatorEndIndex, 
+					String originalStr) {
+				ret.add(currentSplitBulk);
+				return true;
+			}
+		});
+		if(ret.isEmpty()) {
 			return null;
 		}
+		return DTU.cvt(String[].class, ret);
+	}
+
+	/**@author hcqt@qq.com*/
+	public static final void split(String str, String separator, Split split) {
+		split(str, new String[]{ separator }, false, split);
+	}
+
+	/**@author hcqt@qq.com*/
+	public static final void split(String str, String separator, Boolean ignoreCase, Split split) {
+		split(str, new String[]{ separator }, ignoreCase, split);
+	}
+
+	/**@author hcqt@qq.com*/
+	public static final void split(String str, String[] separators, Boolean ignoreCase, Split split) {
+		if(str == null) {
+			return;
+		}
 		if(separators == null) {
-			return new String[]{str};
+			return;
 		}
 		SortedMap<Integer, String> separatorIndexMapping = new TreeMap<Integer, String>(new Comparator<Integer>() {
 			@Override
@@ -428,21 +467,22 @@ public class StringUtils {
 			}
 		}
 		int start = 0;
-		List<String> ret = new ArrayList<String>();
 		for (Integer index : separatorIndexMapping.keySet()) {
-			ret.add(str.substring(start, index));
+			boolean flag = split.read(str.substring(start, index), separatorIndexMapping.get(index), start, index, str);
+			if(!flag) {
+				break;
+			}
 			start = index + separatorIndexMapping.get(index).length();
 		}
 		// 最后一个分隔符后边的内容在循环外补，以提高循环效率
-		ret.add(str.substring(start, str.length()));
-		if(ret.isEmpty()) {
-			return null;
-		}
-		return DTU.cvt(String[].class, ret);
+		split.read(str.substring(start, str.length()), separatorIndexMapping.get(start), start, str.length(), str);
 	}
 
-	public static final String[] split(String str, String separator, Boolean ignoreCase) {
-		return split(str, new String[]{ separator }, ignoreCase);
+	/**@author hcqt@qq.com */
+	public static interface Split {
+		/**@return boolean 返回true表示继续下一块，false表示终止读取下一块
+		 * @author hcqt@qq.com */
+		boolean read(String currentSplitBulk, String currentSeparator, int currentSeparatorStartIndex, int currentSeparatorEndIndex, String originalStr);
 	}
 
 }
