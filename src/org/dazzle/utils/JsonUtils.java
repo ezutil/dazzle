@@ -50,6 +50,7 @@ public class JsonUtils {
         return new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").disableHtmlEscaping().create().toJson(obj);
     }
 
+    /** @author hcqt@qq.com */
     @SuppressWarnings({ "rawtypes", "unchecked" })
 	private static final Object toObj0(JsonElement jsonElement, Class listClazz, Class mapClazz) {
         if(jsonElement != null) {
