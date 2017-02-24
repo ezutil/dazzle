@@ -632,107 +632,6 @@ public class DataTypeUtils {
 		}
 		return obj;
 	}
-//	public static final Object unBoxing(Object obj) {
-//		if(null == obj) {
-//			return null;
-//		}
-//		Class<?> clazz = obj.getClass();
-//		if(isPrimitive(clazz)) {
-//			return obj;
-//		}
-//		if(!clazz.isArray()) {
-//			if(Integer.class.isAssignableFrom(clazz)) {
-//				return (int) obj;
-//			} 
-//			else if(Long.class.isAssignableFrom(clazz)) {
-//				return (long) obj;
-//			}
-//			else if(Double.class.isAssignableFrom(clazz)) {
-//				return (double) obj;
-//			}
-//			else if(Float.class.isAssignableFrom(clazz)) {
-//				return (float) obj;
-//			}
-//			else if(Short.class.isAssignableFrom(clazz)) {
-//				return (short) obj;
-//			}
-//			else if(Byte.class.isAssignableFrom(clazz)) {
-//				return (byte) obj;
-//			}
-//			else if(Character.class.isAssignableFrom(clazz)) {
-//				return (char) obj;
-//			}
-//			else if(Boolean.class.isAssignableFrom(clazz)) {
-//				return (boolean) obj;
-//			}
-//		} else {
-//			if(Integer[].class.isAssignableFrom(clazz)) {
-//				Integer[] tmp = (Integer[]) obj;
-//				int[] newObj = new int[tmp.length];
-//				for (int i = 0; i < tmp.length; i++) {
-//					newObj[i] = (int) unBoxing(tmp[i]);
-//				}
-//				return newObj;
-//			} 
-//			else if(Long[].class.isAssignableFrom(clazz)) {
-//				Long[] tmp = (Long[]) obj;
-//				long[] newObj = new long[tmp.length];
-//				for (int i = 0; i < tmp.length; i++) {
-//					newObj[i] = (long) unBoxing(tmp[i]);
-//				}
-//				return newObj;
-//			}
-//			else if(Double[].class.isAssignableFrom(clazz)) {
-//				Double[] tmp = (Double[]) obj;
-//				double[] newObj = new double[tmp.length];
-//				for (int i = 0; i < tmp.length; i++) {
-//					newObj[i] = (double) unBoxing(tmp[i]);
-//				}
-//				return newObj;
-//			}
-//			else if(Float[].class.isAssignableFrom(clazz)) {
-//				Float[] tmp = (Float[]) obj;
-//				float[] newObj = new float[tmp.length];
-//				for (int i = 0; i < tmp.length; i++) {
-//					newObj[i] = (float) unBoxing(tmp[i]);
-//				}
-//				return newObj;
-//			}
-//			else if(Short[].class.isAssignableFrom(clazz)) {
-//				Short[] tmp = (Short[]) obj;
-//				short[] newObj = new short[tmp.length];
-//				for (int i = 0; i < tmp.length; i++) {
-//					newObj[i] = (short) unBoxing(tmp[i]);
-//				}
-//				return newObj;
-//			}
-//			else if(Byte[].class.isAssignableFrom(clazz)) {
-//				Byte[] tmp = (Byte[]) obj;
-//				byte[] newObj = new byte[tmp.length];
-//				for (int i = 0; i < tmp.length; i++) {
-//					newObj[i] = (byte) unBoxing(tmp[i]);
-//				}
-//				return newObj;
-//			}
-//			else if(Character[].class.isAssignableFrom(clazz)) {
-//				Character[] tmp = (Character[]) obj;
-//				char[] newObj = new char[tmp.length];
-//				for (int i = 0; i < tmp.length; i++) {
-//					newObj[i] = (char) unBoxing(tmp[i]);
-//				}
-//				return newObj;
-//			}
-//			else if(Boolean[].class.isAssignableFrom(clazz)) {
-//				Boolean[] tmp = (Boolean[]) obj;
-//				boolean[] newObj = new boolean[tmp.length];
-//				for (int i = 0; i < tmp.length; i++) {
-//					newObj[i] = (boolean) unBoxing(tmp[i]);
-//				}
-//				return newObj;
-//			}
-//		}
-//		return obj;
-//	}
 
 	/**对输入数据类型进行装箱<br />把八种基本数据类型装箱为包装类型<br />支持对基本数据类型的数组类型装箱为包装类型<br />
 	 * void类型以及非基本数据类型不进行装箱原样返回<br />输入null返回null不作处理<br />
@@ -1465,21 +1364,27 @@ public class DataTypeUtils {
 			throw CatchDataTypeException.returnCouldNotConvertException(Date.class, targetObject);
 		}
 
+		/** @author hcqt@qq.com */
 		private static final String formatDateStr(String dateStr) {
 			if(dateStr == null) {
 				return null;
 			}
 			return dateStr.replace("/", "-").replace(".", "-").replace("\\", "-");
 		}
-	
-		private static final String datePattern1 = "yyyy-MM-dd HH:mm:ss";
-		private static final String datePattern2 = "yyyy-MM-dd";
-		private static final String datePattern3 = "HH:mm:ss";
-		private static final String datePattern4 = "yyyy-MM";
-		private static final String datePattern5 = "HH:mm";
-		private static final String datePattern6 = "yyyy-MM HH:mm";
 
-		private static final String[] datePattern = { datePattern1, datePattern2, datePattern3, datePattern4, datePattern5, datePattern6};
+		private static final String[] datePattern = {
+			"yyyy-MM-dd HH:mm:ss.fff",
+			"yyyy-MM-dd HH:mm:ss",
+			"yyyy-MM-dd HH:mm",
+			"yyyy-MM-dd HH",
+			"yyyy-MM-dd",
+			"HH:mm:ss.fff",
+			"HH:mm:ss",
+			"HH:mm",
+			"HH",
+			"yyyy-MM",
+			"yyyy"
+		};
 
 	}
 
