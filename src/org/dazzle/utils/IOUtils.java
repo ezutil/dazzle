@@ -38,22 +38,27 @@ public class IOUtils {
 		return RDText.read(filePath, "\r\n", (String) null);
 	}
 
+	/** @author hcqt@qq.com */
 	public static final String readText(URI filePath) {
 		return RDText.read(filePath, "\r\n", (String) null);
 	}
-	
+
+	/** @author hcqt@qq.com */
 	public static final String readText(URL filePath) {
 		return RDText.read(filePath, "\r\n", (String) null);
 	}
-	
+
+	/** @author hcqt@qq.com */
 	public static final String readText(byte[] inByte) {
 		return RDText.read(inByte, "\r\n", (String) null);
 	}
-	
+
+	/** @author hcqt@qq.com */
 	public static final String readText(InputStream inputStream) {
 		return RDText.read(inputStream, "\r\n", (String) null);
 	}
-	
+
+	/** @author hcqt@qq.com */
 	public static final String readText(File file) {
 		return RDText.read(file, "\r\n", (String) null);
 	}
@@ -355,231 +360,285 @@ public class IOUtils {
 	
 	
 	////////////
+	/** @author hcqt@qq.com */
 	public static final long copy(String srcPath, URI dest) {
 		return copy(CStream.createInputStream(srcPath), CStream.createOutputStream(dest), null);
 	}
-	
+
+	/** @author hcqt@qq.com */
 	public static final long copy(URI src, URI dest) {
 		return copy(CStream.createInputStream(src), CStream.createOutputStream(dest), null);
 	}
 
+	/** @author hcqt@qq.com */
 	public static final long copy(URL src, URI dest) {
 		return copy(CStream.createInputStream(src), CStream.createOutputStream(dest), null);
 	}
-	
+
+	/** @author hcqt@qq.com */
 	public static final long copy(File src, URI dest) {
 		return copy(CStream.createInputStream(src), CStream.createOutputStream(dest), null);
 	}
-	
+
+	/** @author hcqt@qq.com */
 	public static final long copy(byte[] src, URI dest) {
 		return copy(CStream.createInputStream(src), CStream.createOutputStream(dest), null);
 	}
-	
+
+	/** @author hcqt@qq.com */
 	public static final long copy(InputStream input, URI dest) {
 		return copy(input, CStream.createOutputStream(dest), null);
 	}
 	////////////
 	////////////
+	/** @author hcqt@qq.com */
 	public static final long copy(String srcPath, URL dest) {
 		return copy(CStream.createInputStream(srcPath), CStream.createOutputStream(dest), null);
 	}
-	
+
+	/** @author hcqt@qq.com */
 	public static final long copy(URI src, URL dest) {
 		return copy(CStream.createInputStream(src), CStream.createOutputStream(dest), null);
 	}
-	
+
+	/** @author hcqt@qq.com */
 	public static final long copy(URL src, URL dest) {
 		return copy(CStream.createInputStream(src), CStream.createOutputStream(dest), null);
 	}
-	
+
+	/** @author hcqt@qq.com */
 	public static final long copy(File src, URL dest) {
 		return copy(CStream.createInputStream(src), CStream.createOutputStream(dest), null);
 	}
-	
+
+	/** @author hcqt@qq.com */
 	public static final long copy(byte[] src, URL dest) {
 		return copy(CStream.createInputStream(src), CStream.createOutputStream(dest), null);
 	}
-	
+
+	/** @author hcqt@qq.com */
 	public static final long copy(InputStream input, URL dest) {
 		return copy(input, CStream.createOutputStream(dest), null);
 	}
 	////////////
 	////////////
+	/** @author hcqt@qq.com */
 	public static final long copy(String srcPath, File dest) {
 		return copy(CStream.createInputStream(srcPath), CStream.createOutputStream(dest), null);
 	}
-	
+
+	/** @author hcqt@qq.com */
 	public static final long copy(URI src, File dest) {
 		return copy(CStream.createInputStream(src), CStream.createOutputStream(dest), null);
 	}
-	
+
+	/** @author hcqt@qq.com */
 	public static final long copy(URL src, File dest) {
 		return copy(CStream.createInputStream(src), CStream.createOutputStream(dest), null);
 	}
-	
+
+	/** @author hcqt@qq.com */
 	public static final long copy(File src, File dest) {
 		return copy(CStream.createInputStream(src), CStream.createOutputStream(dest), null);
 	}
-	
+
+	/** @author hcqt@qq.com */
 	public static final long copy(byte[] src, File dest) {
 		return copy(CStream.createInputStream(src), CStream.createOutputStream(dest), null);
 	}
-	
+
+	/** @author hcqt@qq.com */
 	public static final long copy(InputStream input, File dest) {
 		return copy(input, CStream.createOutputStream(dest), null);
 	}
 	////////////
 	////////////
+	/** @author hcqt@qq.com */
 	public static final long copy(String srcPath, OutputStream dest) {
 		return copy(CStream.createInputStream(srcPath), dest, null);
 	}
-	
+
+	/** @author hcqt@qq.com */
 	public static final long copy(URI src, OutputStream dest) {
 		return copy(CStream.createInputStream(src), dest, null);
 	}
-	
+
+	/** @author hcqt@qq.com */
 	public static final long copy(URL src, OutputStream dest) {
 		return copy(CStream.createInputStream(src), dest, null);
 	}
-	
+
+	/** @author hcqt@qq.com */
 	public static final long copy(File src, OutputStream dest) {
 		return copy(CStream.createInputStream(src), dest, null);
 	}
-	
+
+	/** @author hcqt@qq.com */
 	public static final long copy(byte[] src, OutputStream dest) {
 		return copy(CStream.createInputStream(src), dest, null);
 	}
-	
+
+	/** @author hcqt@qq.com */
 	public static final long copy(InputStream input, OutputStream dest) {
 		return copy(input, dest, null);
 	}
 	////////////
 	////////////
+	/** @author hcqt@qq.com */
 	public static final long copy(String srcPath, String dest) {
 		return copy(CStream.createInputStream(srcPath), CStream.createOutputStream(dest), null);
 	}
-	
+
+	/** @author hcqt@qq.com */
 	public static final long copy(URI src, String dest) {
 		return copy(CStream.createInputStream(src), CStream.createOutputStream(dest), null);
 	}
-	
+
+	/** @author hcqt@qq.com */
 	public static final long copy(URL src, String dest) {
 		return copy(CStream.createInputStream(src), CStream.createOutputStream(dest), null);
 	}
-	
+
+	/** @author hcqt@qq.com */
 	public static final long copy(File src, String dest) {
 		return copy(CStream.createInputStream(src), CStream.createOutputStream(dest), null);
 	}
-	
+
+	/** @author hcqt@qq.com */
 	public static final long copy(byte[] src, String dest) {
 		return copy(CStream.createInputStream(src), CStream.createOutputStream(dest), null);
 	}
-	
+
+	/** @author hcqt@qq.com */
 	public static final long copy(InputStream input, String dest) {
 		return copy(input, CStream.createOutputStream(dest), null);
 	}
 	////////////
 	
 	////////////
+	/** @author hcqt@qq.com */
 	public static final long copy(String srcPath, URI dest, boolean append) {
 		return copy(CStream.createInputStream(srcPath), CStream.createOutputStream(dest, append), null);
 	}
-	
+
+	/** @author hcqt@qq.com */
 	public static final long copy(URI src, URI dest, boolean append) {
 		return copy(CStream.createInputStream(src), CStream.createOutputStream(dest, append), null);
 	}
-	
+
+	/** @author hcqt@qq.com */
 	public static final long copy(URL src, URI dest, boolean append) {
 		return copy(CStream.createInputStream(src), CStream.createOutputStream(dest, append), null);
 	}
-	
+
+	/** @author hcqt@qq.com */
 	public static final long copy(File src, URI dest, boolean append) {
 		return copy(CStream.createInputStream(src), CStream.createOutputStream(dest, append), null);
 	}
-	
+
+	/** @author hcqt@qq.com */
 	public static final long copy(byte[] src, URI dest, boolean append) {
 		return copy(CStream.createInputStream(src), CStream.createOutputStream(dest, append), null);
 	}
-	
+
+	/** @author hcqt@qq.com */
 	public static final long copy(InputStream input, URI dest, boolean append) {
 		return copy(input, CStream.createOutputStream(dest, append), null);
 	}
 	////////////
 	////////////
+	/** @author hcqt@qq.com */
 	public static final long copy(String srcPath, URL dest, boolean append) {
 		return copy(CStream.createInputStream(srcPath), CStream.createOutputStream(dest, append), null);
 	}
-	
+
+	/** @author hcqt@qq.com */
 	public static final long copy(URI src, URL dest, boolean append) {
 		return copy(CStream.createInputStream(src), CStream.createOutputStream(dest, append), null);
 	}
-	
+
+	/** @author hcqt@qq.com */
 	public static final long copy(URL src, URL dest, boolean append) {
 		return copy(CStream.createInputStream(src), CStream.createOutputStream(dest, append), null);
 	}
-	
+
+	/** @author hcqt@qq.com */
 	public static final long copy(File src, URL dest, boolean append) {
 		return copy(CStream.createInputStream(src), CStream.createOutputStream(dest, append), null);
 	}
-	
+
+	/** @author hcqt@qq.com */
 	public static final long copy(byte[] src, URL dest, boolean append) {
 		return copy(CStream.createInputStream(src), CStream.createOutputStream(dest, append), null);
 	}
-	
+
+	/** @author hcqt@qq.com */
 	public static final long copy(InputStream input, URL dest, boolean append) {
 		return copy(input, CStream.createOutputStream(dest, append), null);
 	}
 	////////////
 	////////////
+	/** @author hcqt@qq.com */
 	public static final long copy(String srcPath, File dest, boolean append) {
 		return copy(CStream.createInputStream(srcPath), CStream.createOutputStream(dest, append), null);
 	}
-	
+
+	/** @author hcqt@qq.com */
 	public static final long copy(URI src, File dest, boolean append) {
 		return copy(CStream.createInputStream(src), CStream.createOutputStream(dest, append), null);
 	}
-	
+
+	/** @author hcqt@qq.com */
 	public static final long copy(URL src, File dest, boolean append) {
 		return copy(CStream.createInputStream(src), CStream.createOutputStream(dest, append), null);
 	}
-	
+
+	/** @author hcqt@qq.com */
 	public static final long copy(File src, File dest, boolean append) {
 		return copy(CStream.createInputStream(src), CStream.createOutputStream(dest, append), null);
 	}
-	
+
+	/** @author hcqt@qq.com */
 	public static final long copy(byte[] src, File dest, boolean append) {
 		return copy(CStream.createInputStream(src), CStream.createOutputStream(dest, append), null);
 	}
-	
+
+	/** @author hcqt@qq.com */
 	public static final long copy(InputStream input, File dest, boolean append) {
 		return copy(input, CStream.createOutputStream(dest, append), null);
 	}
 	////////////
+	/** @author hcqt@qq.com */
 	public static final long copy(String srcPath, String dest, boolean append) {
 		return copy(CStream.createInputStream(srcPath), CStream.createOutputStream(dest, append), null);
 	}
-	
+
+	/** @author hcqt@qq.com */
 	public static final long copy(URI src, String dest, boolean append) {
 		return copy(CStream.createInputStream(src), CStream.createOutputStream(dest, append), null);
 	}
-	
+
+	/** @author hcqt@qq.com */
 	public static final long copy(URL src, String dest, boolean append) {
 		return copy(CStream.createInputStream(src), CStream.createOutputStream(dest, append), null);
 	}
-	
+
+	/** @author hcqt@qq.com */
 	public static final long copy(File src, String dest, boolean append) {
 		return copy(CStream.createInputStream(src), CStream.createOutputStream(dest, append), null);
 	}
-	
+
+	/** @author hcqt@qq.com */
 	public static final long copy(byte[] src, String dest, boolean append) {
 		return copy(CStream.createInputStream(src), CStream.createOutputStream(dest, append), null);
 	}
-	
+
+	/** @author hcqt@qq.com */
 	public static final long copy(InputStream input, String dest, boolean append) {
 		return copy(input, CStream.createOutputStream(dest, append), null);
 	}
 	////////////
-
+	/** @author hcqt@qq.com */
 	public static final long copy(InputStream input, OutputStream output, byte[] buffer) {
 		if(input == null) {
 			throw new org.dazzle.utils.IOUtils.IOException("SYS_COMMON_COPY_FILE_78H3n", "程序检测到输入流为空，无法进行IO流复制");
@@ -629,6 +688,7 @@ public class IOUtils {
 		return createFile(new File(UU.resolve(uri)));
 	}
 
+	/** @author hcqt@qq.com */
 	public static File createFile(URL uri) {
 		return createFile(new File(UU.resolveToURI(uri)));
 	}
@@ -661,27 +721,33 @@ public class IOUtils {
 
 	/** @author hcqt@qq.com */
 	private static final class RDText {
-		
+
+		/** @author hcqt@qq.com */
 		private static final String read(byte[] inByte, String lineEndSeparator, String charsetName) {
 			return read(CStream.createInputStream(inByte), lineEndSeparator, charsetName);
 		}
-		
+
+		/** @author hcqt@qq.com */
 		private static final String read(String uriStr, String lineEndSeparator, String charsetName) {
 			return read(UU.create(uriStr), lineEndSeparator, charsetName);
 		}
 
+		/** @author hcqt@qq.com */
 		private static final String read(URI uri, String lineEndSeparator, String charsetName) {
 			return read(CStream.createInputStream(uri), lineEndSeparator, charsetName);
 		}
-		
+
+		/** @author hcqt@qq.com */
 		private static final String read(URL url, String lineEndSeparator, String charsetName) {
 			return read(CStream.createInputStream(url), lineEndSeparator, charsetName);
 		}
-		
+
+		/** @author hcqt@qq.com */
 		private static final String read(File file, String lineEndSeparator, String charsetName) {
 			return read(CStream.createInputStream(file), lineEndSeparator, charsetName);
 		}
-		
+
+		/** @author hcqt@qq.com */
 		private static final String read(InputStream inputStream, final String lineEndSeparator, String charsetName) {
 			final StringBuilder sb = new StringBuilder();
 			final boolean[] flag = new boolean[] { false };
@@ -704,47 +770,58 @@ public class IOUtils {
 			}
 			return sb.toString();
 		}
-		
+
+		/** @author hcqt@qq.com */
 		private static final void read(byte[] inStrByte, String charsetName, ReadRow readRow) {
 			read(CStream.createInputStream(inStrByte), charsetName, readRow);
 		}
-		
+
+		/** @author hcqt@qq.com */
 		private static final void read(String uriStr, String charsetName, ReadRow readRow) {
 			read(UU.create(uriStr), charsetName, readRow);
 		}
-		
+
+		/** @author hcqt@qq.com */
 		private static final void read(URI uri, String charsetName, ReadRow readRow) {
 			read(CStream.createInputStream(uri), charsetName, readRow);
 		}
-		
+
+		/** @author hcqt@qq.com */
 		private static final void read(URL url, String charsetName, ReadRow readRow) {
 			read(CStream.createInputStream(url), charsetName, readRow);
 		}
-		
+
+		/** @author hcqt@qq.com */
 		private static final void read(File file, String charsetName, ReadRow readRow) {
 			read(CStream.createInputStream(file), charsetName, readRow);
 		}
-		
+
+		/** @author hcqt@qq.com */
 		private static final String read(byte[] inStrByte, String charsetName, int rowNum) {
 			return read(CStream.createInputStream(inStrByte), charsetName, rowNum);
 		}
-		
+
+		/** @author hcqt@qq.com */
 		private static final String read(String uriStr, String charsetName, int rowNum) {
 			return read(UU.create(uriStr), charsetName, rowNum);
 		}
-		
+
+		/** @author hcqt@qq.com */
 		private static final String read(URI uri, String charsetName, int rowNum) {
 			return read(CStream.createInputStream(uri), charsetName, rowNum);
 		}
-		
+
+		/** @author hcqt@qq.com */
 		private static final String read(URL url, String charsetName, int rowNum) {
 			return read(CStream.createInputStream(url), charsetName, rowNum);
 		}
-		
+
+		/** @author hcqt@qq.com */
 		private static final String read(File file, String charsetName, int rowNum) {
 			return read(CStream.createInputStream(file), charsetName, rowNum);
 		}
-		
+
+		/** @author hcqt@qq.com */
 		private static final String read(InputStream inputStream, String charsetName, final int rowNum) {
 			final String[] ret = new String[1];
 			read(inputStream, charsetName, new ReadRow() {
@@ -760,26 +837,32 @@ public class IOUtils {
 			return ret[0];
 		}
 
+		/** @author hcqt@qq.com */
 		private static final int readRowCount(byte[] inStrByte) {
 			return readRowCount(CStream.createInputStream(inStrByte));
 		}
-		
+
+		/** @author hcqt@qq.com */
 		private static final int readRowCount(String uriStr) {
 			return readRowCount(UU.create(uriStr));
 		}
-		
+
+		/** @author hcqt@qq.com */
 		private static final int readRowCount(URI uri) {
 			return readRowCount(CStream.createInputStream(uri));
 		}
-		
+
+		/** @author hcqt@qq.com */
 		private static final int readRowCount(URL url) {
 			return readRowCount(CStream.createInputStream(url));
 		}
-		
+
+		/** @author hcqt@qq.com */
 		private static final int readRowCount(File file) {
 			return readRowCount(CStream.createInputStream(file));
 		}
 
+		/** @author hcqt@qq.com */
 		private static final int readRowCount(InputStream inputStream) {
 			final Integer[] ret = new Integer[1];
 			read(inputStream, Charset.defaultCharset().toString(), new ReadRow() {
@@ -828,7 +911,8 @@ public class IOUtils {
 //				}
 //			}
 //		}
-		
+
+		/** @author hcqt@qq.com */
 		private static final void read(InputStream inputStream, String charsetName, ReadRow readRow) {
 			if(inputStream == null) {
 				return;
@@ -942,14 +1026,17 @@ public class IOUtils {
 	/** @author hcqt@qq.com */
 	private static final class WR {
 
+		/** @author hcqt@qq.com */
 		private static void write(byte[] inByte, OutputStream outputStream) {
 			write(CStream.createInputStream(inByte), outputStream);
 		}
 
+		/** @author hcqt@qq.com */
 		private static void write(String inString, OutputStream outputStream) {
 			write(CStream.createInputStream(inString.getBytes()), outputStream);
 		}
-		
+
+		/** @author hcqt@qq.com */
 		private static void write(InputStream inputStream, OutputStream outputStream) {
 			copy(inputStream, outputStream);
 		}
@@ -1050,12 +1137,16 @@ public class IOUtils {
 
 	/** @author hcqt@qq.com */
 	private static final class CStream {
+
+		/** @author hcqt@qq.com */
 		private static final InputStream createInputStream(URI inUri) {
 			if(inUri == null) {
 				throw new org.dazzle.utils.IOUtils.IOException("COMMON_IO_UTIL_9ncds", "创建输入流要求传入方法的java.net.URI实参不能为null");
 			}
 			return createInputStream(UU.resolveToURL(inUri));
 		}
+
+		/** @author hcqt@qq.com */
 		private static final InputStream createInputStream(URL inUrl) {
 			if(inUrl == null) {
 				throw new org.dazzle.utils.IOUtils.IOException("COMMON_IO_UTIL_pMFe0", "创建输入流要求传入方法的java.net.URL实参不能为null");
@@ -1067,12 +1158,16 @@ public class IOUtils {
 				throw new org.dazzle.utils.IOUtils.IOException("COMMON_IO_UTIL_mghs1", "无法从指定的URL创建输入流，URL路径——{0}", e, inUrl);
 			}
 		}
+
+		/** @author hcqt@qq.com */
 		private static final InputStream createInputStream(byte[] inByte) {
 			if(inByte == null) {
 				throw new org.dazzle.utils.IOUtils.IOException("COMMON_IO_UTIL_6fhzk", "创建输入流要求传入方法的byte[]实参不能为null");
 			}
 			return new ByteArrayInputStream(inByte);
 		}
+
+		/** @author hcqt@qq.com */
 		private static final InputStream createInputStream(File inFile) {
 			if(inFile == null) {
 				throw new org.dazzle.utils.IOUtils.IOException("COMMON_IO_UTIL_6jfIe", "创建输入流要求传入方法的java.io.File实参不能为null");
@@ -1083,38 +1178,48 @@ public class IOUtils {
 				throw new org.dazzle.utils.IOUtils.IOException("COMMON_IO_UTIL_8g3gP", "无法从不存在的文件创建输入流，详情——{0}", e, e.getMessage());
 			}
 		}
+
+		/** @author hcqt@qq.com */
 		private static final InputStream createInputStream(String inPath) {
 			return createInputStream(UU.resolve(inPath));
 		}
-		
+
+		/** @author hcqt@qq.com */
 		private static final OutputStream createOutputStream(String outPath) {
 			return createOutputStream(outPath, false);
 		}
-		
+
+		/** @author hcqt@qq.com */
 		private static final OutputStream createOutputStream(URI outUri) {
 			return createOutputStream(outUri, false);
 		}
 
+		/** @author hcqt@qq.com */
 		private static final OutputStream createOutputStream(URL outUrl) {
 			return createOutputStream(outUrl, false);
 		}
-		
+
+		/** @author hcqt@qq.com */
 		private static final OutputStream createOutputStream(File outFile) {
 			return createOutputStream(outFile, false);
 		}
 
+		/** @author hcqt@qq.com */
 		private static final OutputStream createOutputStream(String outPath, boolean append) {
 			return createOutputStream(new File(UU.resolve(outPath)), append);
 		}
 
+		/** @author hcqt@qq.com */
 		private static final OutputStream createOutputStream(URI outUri, boolean append) {
 			return createOutputStream(new File(UU.resolve(outUri)), append);
 		}
 
+		/** @author hcqt@qq.com */
 		private static final OutputStream createOutputStream(URL outUrl, boolean append) {
 			return createOutputStream(new File(UU.resolveToURI(outUrl)), append);
 		}
 
+		/** @author hcqt@qq.com */
 		private static final OutputStream createOutputStream(File outFile, boolean append) {
 			if(outFile == null) {
 				throw new org.dazzle.utils.IOUtils.IOException("COMMON_IO_UTIL_6jf4g", "创建输出流要求传入方法的java.io.File实参不能为null");
@@ -1129,18 +1234,22 @@ public class IOUtils {
 
 	}
 
+	/** @author hcqt@qq.com */
 	public static class IOException extends BaseException {
 
 		private static final long serialVersionUID = 556038819767707281L;
 
+		/** @author hcqt@qq.com */
 		public IOException() {
 			super();
 		}
 
+		/** @author hcqt@qq.com */
 		public IOException(String code, String message, Object... msgArg) {
 			super(code, message, msgArg);
 		}
 
+		/** @author hcqt@qq.com */
 		public IOException(String code, String message, Throwable cause, Object... msgArg) {
 			super(code, message, cause, msgArg);
 		}
