@@ -23,9 +23,13 @@ public class URLUtils {
 	public static final URI resolveToURI(String uri) {
 		return resolve(uri);
 	}
+
+	/** @author hcqt@qq.com */
 	public static final URI resolveToURI(URI uri) {
 		return resolve(uri);
 	}
+
+	/** @author hcqt@qq.com */
 	public static final URI resolveToURI(final URL url) {
 		try {
 			return resolve(url.toURI());
@@ -33,6 +37,8 @@ public class URLUtils {
 			throw new org.dazzle.utils.URLUtils.URLException("URI_UTILS_RESOLVE_9nm3g", "URL“{0}”解析过程中发现语法错误，详情——{1}", e, url, e.getMessage());
 		}
 	}
+
+	/** @author hcqt@qq.com */
 	public static final URL resolveToURL(String uri) {
 		try {
 			return resolve(uri).toURL();
@@ -40,9 +46,13 @@ public class URLUtils {
 			throw new URLException("URI_UTILS_CONVERT_Om2Eh", "URL“{0}”解析过程中发现语法错误，详情——{1}", e, uri, e.getMessage());
 		}
 	}
+
+	/** @author hcqt@qq.com */
 	public static final URL resolveToURL(URL uri) {
 		return resolve(uri);
 	}
+
+	/** @author hcqt@qq.com */
 	public static final URL resolveToURL(URI uri) {
 		try {
 			return resolve(uri).toURL();
@@ -126,18 +136,22 @@ public class URLUtils {
 		return URI.create(uri);
 	}
 
+	/** @author hcqt@qq.com */
 	public static class URLException extends BaseException {
 
 		private static final long serialVersionUID = -8507973954891579825L;
 
+		/** @author hcqt@qq.com */
 		public URLException() {
 			super();
 		}
 
+		/** @author hcqt@qq.com */
 		public URLException(String code, String message, Object... msgArg) {
 			super(code, message, msgArg);
 		}
 
+		/** @author hcqt@qq.com */
 		public URLException(String code, String message, Throwable cause, Object... msgArg) {
 			super(code, message, cause, msgArg);
 		}
