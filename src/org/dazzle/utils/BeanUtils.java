@@ -303,6 +303,7 @@ public class BeanUtils {
 		}
 	}
 
+	/** @author hcqt@qq.com */
 	private static final void setField(Class<?> currentClass, Object obj, String fieldName, Object val) {
 		Class<?> fieldType = getFieldType(currentClass, fieldName);
 		Method method = null;
@@ -329,6 +330,7 @@ public class BeanUtils {
 		}
 	}
 
+	/** @author hcqt@qq.com */
 	private static final void reflectSetField(Class<?> currentClass, Object obj, String fieldName, Object fieldVal) {
 		Field _field = getField(currentClass, fieldName);
 		if(_field == null) {
@@ -344,6 +346,7 @@ public class BeanUtils {
 		}
 	}
 
+	/** @author hcqt@qq.com */
 	private static final Class<?> getFieldType(Class<?> clazz, String fieldName) {
 		Field _field = getField(clazz, fieldName);
 		if(_field == null) {
@@ -352,6 +355,7 @@ public class BeanUtils {
 		return getFieldType(_field);
 	}
 
+	/** @author hcqt@qq.com */
 	private static final Field getField(Class<?> clazz, String fieldName) {
 		try {
 			return clazz.getDeclaredField(fieldName);
@@ -362,6 +366,7 @@ public class BeanUtils {
 		}
 	}
 
+	/** @author hcqt@qq.com */
 	private static final Class<?> getFieldType(Field field) {
 		if(field == null) {
 			return Object.class;
@@ -369,6 +374,7 @@ public class BeanUtils {
 		return field.getType();
 	}
 
+	/** @author hcqt@qq.com */
 	private static final String methodName(String prefix, String fieldName) {
 		return new StringBuilder().append(prefix).append(fieldName.substring(0, 1).toUpperCase()).append(fieldName.substring(1)).toString();
 	}
