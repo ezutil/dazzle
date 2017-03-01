@@ -125,6 +125,21 @@ public class URLUtils {
 		return resolve(create(uri));
 	}
 
+	public static final URI create(
+			String scheme, 
+			String userInfo, 
+			String host, 
+			int port, 
+			String path, 
+			String query, 
+			String fragment) {
+		try {
+			return new URI(scheme, userInfo, host, port, path, query, fragment);
+		} catch (URISyntaxException e) {
+			throw new URLException("uri_utils_create_8L3MX", "创建URI失败，详情——{0}", e, e.getMessage());
+		}
+	}
+
 	/**JDK自带URI.create的升级，自动兼容空值以及转义“\”字符
 	 * @see #resolve(URI)
 	 * @author hcqt@qq.com */
