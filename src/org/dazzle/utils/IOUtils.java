@@ -640,26 +640,36 @@ public class IOUtils {
 	////////////
 	/** @author hcqt@qq.com */
 	public static final long copy(InputStream input, OutputStream output, byte[] buffer) {
-		if(input == null) {
-			throw new org.dazzle.utils.IOUtils.IOException("SYS_COMMON_COPY_FILE_78H3n", "程序检测到输入流为空，无法进行IO流复制");
-		}
-		if(output == null) {
-			throw new org.dazzle.utils.IOUtils.IOException("SYS_COMMON_COPY_FILE_73LmX", "程序检测到输出流为空，无法进行IO流复制");
-		}
-		if(buffer == null || buffer.length <= 0) {
-			buffer = new byte[63];
-		}
-		long count = 0L;
-		int n = 0;
 		try {
-			while (-1 != (n = input.read(buffer))) {
-				output.write(buffer, 0, n);
-				count += n;
+			if(input == null) {
+				throw new org.dazzle.utils.IOUtils.IOException("SYS_COMMON_COPY_FILE_78H3n", "程序检测到输入流为空，无法进行IO流复制");
 			}
-		} catch (java.io.IOException e) {
-			throw new org.dazzle.utils.IOUtils.IOException("SYS_COMMON_COPY_FILE_82mPw", "IO流复制发生IO异常，复制失败，详情——{0}", e, e.getMessage());
+			if(output == null) {
+				throw new org.dazzle.utils.IOUtils.IOException("SYS_COMMON_COPY_FILE_73LmX", "程序检测到输出流为空，无法进行IO流复制");
+			}
+			if(buffer == null || buffer.length <= 0) {
+				buffer = new byte[63];
+			}
+			long count = 0L;
+			int n = 0;
+			try {
+				while (-1 != (n = input.read(buffer))) {
+					output.write(buffer, 0, n);
+//					Arrays.fill(buffer, (byte) 0);
+					count += n;
+				}
+			} catch (java.io.IOException e) {
+				throw new org.dazzle.utils.IOUtils.IOException("SYS_COMMON_COPY_FILE_82mPw", "IO流复制发生IO异常，复制失败，详情——{0}", e, e.getMessage());
+			}
+			return count;
+		} finally {
+			if(input != null) {
+				try { input.close(); } catch (Throwable e) { }
+			}
+			if(output != null) {
+				try { output.close(); } catch (Throwable e) { }
+			}
 		}
-		return count;
 	}
 
 	/**检查文件是否存在，如果不存在则创建 
@@ -933,7 +943,7 @@ public class IOUtils {
 						readRow.read(line, i);
 					}
 				} catch (java.io.IOException e) {
-					throw new org.dazzle.utils.IOUtils.IOException("COMMON_READ_FILE_ib4V3", "文件[{0}]读取失败，详情——{1}", e, ExceptionUtils.out(e));
+					throw new org.dazzle.utils.IOUtils.IOException("COMMON_READ_FILE_ib4V3", "输入流读取失败，详情——{1}", e, e.getMessage());
 				}
 			} finally {
 				if(bufferedReader != null) {
@@ -1136,10 +1146,10 @@ public class IOUtils {
 	}
 
 	/** @author hcqt@qq.com */
-	private static final class CStream {
+	static final class CStream {
 
 		/** @author hcqt@qq.com */
-		private static final InputStream createInputStream(URI inUri) {
+		static final InputStream createInputStream(URI inUri) {
 			if(inUri == null) {
 				throw new org.dazzle.utils.IOUtils.IOException("COMMON_IO_UTIL_9ncds", "创建输入流要求传入方法的java.net.URI实参不能为null");
 			}
@@ -1147,7 +1157,7 @@ public class IOUtils {
 		}
 
 		/** @author hcqt@qq.com */
-		private static final InputStream createInputStream(URL inUrl) {
+		static final InputStream createInputStream(URL inUrl) {
 			if(inUrl == null) {
 				throw new org.dazzle.utils.IOUtils.IOException("COMMON_IO_UTIL_pMFe0", "创建输入流要求传入方法的java.net.URL实参不能为null");
 			}
@@ -1160,7 +1170,7 @@ public class IOUtils {
 		}
 
 		/** @author hcqt@qq.com */
-		private static final InputStream createInputStream(byte[] inByte) {
+		static final InputStream createInputStream(byte[] inByte) {
 			if(inByte == null) {
 				throw new org.dazzle.utils.IOUtils.IOException("COMMON_IO_UTIL_6fhzk", "创建输入流要求传入方法的byte[]实参不能为null");
 			}
@@ -1168,7 +1178,7 @@ public class IOUtils {
 		}
 
 		/** @author hcqt@qq.com */
-		private static final InputStream createInputStream(File inFile) {
+		static final InputStream createInputStream(File inFile) {
 			if(inFile == null) {
 				throw new org.dazzle.utils.IOUtils.IOException("COMMON_IO_UTIL_6jfIe", "创建输入流要求传入方法的java.io.File实参不能为null");
 			}
@@ -1180,47 +1190,47 @@ public class IOUtils {
 		}
 
 		/** @author hcqt@qq.com */
-		private static final InputStream createInputStream(String inPath) {
+		static final InputStream createInputStream(String inPath) {
 			return createInputStream(UU.resolve(inPath));
 		}
 
 		/** @author hcqt@qq.com */
-		private static final OutputStream createOutputStream(String outPath) {
+		static final OutputStream createOutputStream(String outPath) {
 			return createOutputStream(outPath, false);
 		}
 
 		/** @author hcqt@qq.com */
-		private static final OutputStream createOutputStream(URI outUri) {
+		static final OutputStream createOutputStream(URI outUri) {
 			return createOutputStream(outUri, false);
 		}
 
 		/** @author hcqt@qq.com */
-		private static final OutputStream createOutputStream(URL outUrl) {
+		static final OutputStream createOutputStream(URL outUrl) {
 			return createOutputStream(outUrl, false);
 		}
 
 		/** @author hcqt@qq.com */
-		private static final OutputStream createOutputStream(File outFile) {
+		static final OutputStream createOutputStream(File outFile) {
 			return createOutputStream(outFile, false);
 		}
 
 		/** @author hcqt@qq.com */
-		private static final OutputStream createOutputStream(String outPath, boolean append) {
+		static final OutputStream createOutputStream(String outPath, boolean append) {
 			return createOutputStream(new File(UU.resolve(outPath)), append);
 		}
 
 		/** @author hcqt@qq.com */
-		private static final OutputStream createOutputStream(URI outUri, boolean append) {
+		static final OutputStream createOutputStream(URI outUri, boolean append) {
 			return createOutputStream(new File(UU.resolve(outUri)), append);
 		}
 
 		/** @author hcqt@qq.com */
-		private static final OutputStream createOutputStream(URL outUrl, boolean append) {
+		static final OutputStream createOutputStream(URL outUrl, boolean append) {
 			return createOutputStream(new File(UU.resolveToURI(outUrl)), append);
 		}
 
 		/** @author hcqt@qq.com */
-		private static final OutputStream createOutputStream(File outFile, boolean append) {
+		static final OutputStream createOutputStream(File outFile, boolean append) {
 			if(outFile == null) {
 				throw new org.dazzle.utils.IOUtils.IOException("COMMON_IO_UTIL_6jf4g", "创建输出流要求传入方法的java.io.File实参不能为null");
 			}
