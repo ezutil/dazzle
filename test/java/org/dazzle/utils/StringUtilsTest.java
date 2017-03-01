@@ -5,6 +5,12 @@ import org.junit.Test;
 public class StringUtilsTest {
 	
 	@Test
+	public void test12() {
+		String str = "a=";
+		System.out.println(JU.toJson(SU.split(str, "=")));
+	}
+
+	@Test
 	public void test11() {
 		String str = "1,2xx3,xx5xx6xx7,8xx9";
 		String[] strarr = SU.split(str, (String[]) null, false);

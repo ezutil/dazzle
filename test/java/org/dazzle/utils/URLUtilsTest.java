@@ -7,6 +7,25 @@ import org.junit.Test;
 public class URLUtilsTest {
 
 	@Test
+	public void test19() {
+		URI uri = UU.create("http://username:password@www.abc.com:8080?a=b&c%5B%5D=d&c%5B%5D=d#aa");
+		System.out.println(uri.getScheme());
+		System.out.println(uri.getHost());
+		System.out.println(uri.getAuthority());
+		System.out.println(uri.getRawFragment());
+		System.out.println(uri.getUserInfo());
+		System.out.println(uri.getPort());
+		System.out.println(uri.getPath());
+		System.out.println(uri.getQuery());
+		System.out.println(uri.getSchemeSpecificPart());
+		System.out.println(uri.getRawFragment());
+		System.out.println(uri.getRawAuthority());
+		System.out.println(uri.getRawPath());
+		System.out.println(uri.getRawSchemeSpecificPart());
+		System.out.println(uri.getRawUserInfo());
+	}
+
+	@Test
 	public void test18() {
 		try {
 			URI uri = UU.resolve("classpath:/D:/a/b/c/b.txt");
