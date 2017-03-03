@@ -7,6 +7,15 @@ import org.junit.Test;
 public class BeanUtilsTest {
 
 	@Test
+	public void test2() {
+		Test2Bean bean = new Test2Bean();
+		bean.setField1(100L);
+		bean.setField2("xxx");
+		Map<String, Object> ret = BeanUtils.bean2Map(bean);
+		System.out.println(ret);
+	}
+
+	@Test
 	public void bean2MapTest() {
 		TestBean bean = new TestBean();
 		bean.setField1(100L);
@@ -28,6 +37,16 @@ public class BeanUtilsTest {
 	}
 
 }
+class Test2Bean extends TestBean {
+	private static final String a = "aaa";
+	public static final String b = "bbb";
+	private static volatile String c = "ccc";
+	private transient String d = "ddd";
+	private enum e { f,g,h};
+//	private strictfp String i = "iii";
+	private volatile String j = "jjj";
+}
+
 class TestBean {
 	private Long field1;
 	private String field2;
