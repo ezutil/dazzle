@@ -711,17 +711,22 @@ public class IOUtils {
 		}
 	}
 
-//	/**向文件当中换行后追加内容，
-//	 * 检查文件是否存在，若不存在则创建文件
-//	 * @throws IOException 
-//	 * @author hcqt@qq.com */
-//	public static void appendContent2File(File file, String content) throws IOException {
-//		WR.writeString(file, content, true);
-//	}
-//
-//	public static void append2File(File file, String content) throws IOException {
-//		WR.writeString(file, content, true);
-//	}
+	/**向文件当中换行后追加内容，
+	 * 检查文件是否存在，若不存在则创建文件,
+	 * 已由{@link #write(String, File, boolean)}代替
+	 * @throws IOException 
+	 * @author hcqt@qq.com */
+	@Deprecated
+	public static void appendContent2File(File file, String content) throws IOException {
+		write(content, file, true);
+	}
+
+	/**已由{@link #write(String, File)}代替
+	 * @author hcqt@qq.com*/
+	@Deprecated
+	public static void append2File(File file, String content) throws IOException {
+		write(content, file, true);
+	}
 //
 //	private static SimpleDateFormat dateFormat_for_createDateFile = new SimpleDateFormat("yyyy/MM/dd");
 //	private static String createDateFile() {
