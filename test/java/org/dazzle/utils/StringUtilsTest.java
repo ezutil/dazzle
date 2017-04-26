@@ -5,6 +5,18 @@ import org.junit.Test;
 public class StringUtilsTest {
 	
 	@Test
+	public void test13() {
+		String a = "abcabc";
+		String target = "abc";
+//		String replacement = "x";
+		String replacement = "aabc";
+		Integer expectTargetNum = null;
+		Boolean isIgnoreCase = true;
+		String b = SU.replace(a, target, replacement, expectTargetNum, isIgnoreCase);
+		System.out.println(b);
+	}
+
+	@Test
 	public void test12() {
 		String str = "a=";
 		System.out.println(JU.toJson(SU.split(str, "=")));

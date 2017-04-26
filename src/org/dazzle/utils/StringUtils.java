@@ -14,6 +14,66 @@ public class StringUtils {
 	/**@author hcqt@qq.com*/
 	StringUtils(){ super(); };
 
+	/**@see #replace(String, String, String, Integer, Boolean)
+	 * @author hcqt@qq.com*/
+	public static final String replace(String str, String target, String replacement) {
+		return replace(str, target, replacement, null, false);
+	}
+
+	/**@param str 原始字符串
+	 * @param target 要替换的字符串
+	 * @param replacement 替换后的字符串
+	 * @param expectTargetNum 预期替换第几处target字符串，如果为null，则全部替换，允许负数，负数表示从末尾开始匹配
+	 * @param isIgnoreCase 是否忽略大小写，如果为null，则默认为否：false
+	 * @author hcqt@qq.com*/
+	public static final String replace(String str, String target, String replacement, Integer expectTargetNum, Boolean isIgnoreCase) {
+		if(str == null || str.length() <= 0) {
+			return str;
+		}
+		if(target == null) {
+			target = "null";
+		}
+		if(replacement == null) {
+			replacement = "null";
+		}
+		if(isIgnoreCase == null) {
+			isIgnoreCase = false;
+		}
+		if(expectTargetNum == null) {
+			return replace0(str.toString(), target, replacement, isIgnoreCase);
+		} else {
+			int startIndex = SU.indexOf(str.toString(), target, 1, isIgnoreCase);
+			str = new StringBuilder(str).replace(startIndex, startIndex + target.length(), replacement).toString();
+		}
+		return str;
+	}
+
+	private static final String replace0(String str, String target, final String replacement, Boolean isIgnoreCase) {
+		final StringBuilder[] ret = { new StringBuilder() };
+		final boolean[] isLeastAppend = { false };
+		SU.split(str.toString(), target, isIgnoreCase, new Split() {
+			@Override
+			public boolean read(
+					String currentSplitBulk, 
+					String currentSeparator, 
+					int currentSeparatorStartIndex,
+					int currentSeparatorEndIndex, 
+					String originalStr) {
+				ret[0].append(currentSplitBulk);
+				ret[0].append(replacement);
+				isLeastAppend[0] = true;
+				return true;
+			}
+		});
+		if(isLeastAppend[0]) {// 如果至少发生过一次替换，那么截掉末尾多余的append
+			deleteSuffix(ret[0], replacement);
+		}
+		if(ret[0] == null) {
+			return null;
+		}
+		return ret[0].toString();
+	}
+
 	/**@see #subStringCountNum(String, String, Boolean)
 	 * @author hcqt@qq.com*/
 	public static final int subStringCountNum(String src, String dest) {
@@ -380,16 +440,16 @@ public class StringUtils {
 	}
 
 	/**@author hcqt@qq.com*/
-	public static final String subString(String str, String separator, Integer stratNum, Integer endNum, Boolean ignoreCase) {
-		if(str == null || separator == null || stratNum == null || endNum == null) {
+	public static final String subString(String str, String separator, Integer stratSeparatorNum, Integer endSeparatorNum, Boolean ignoreCase) {
+		if(str == null || separator == null || stratSeparatorNum == null || endSeparatorNum == null) {
 			return null;
 		}
-		int startIndex = indexOf(str, separator, stratNum, ignoreCase);
+		int startIndex = indexOf(str, separator, stratSeparatorNum, ignoreCase);
 		if(startIndex == -1) {
 			return null;
 		}
 		startIndex = startIndex + separator.length();
-		int endIndex = indexOf(str, separator, endNum, ignoreCase);
+		int endIndex = indexOf(str, separator, endSeparatorNum, ignoreCase);
 		if(endIndex == -1) {
 			return null;
 		}
