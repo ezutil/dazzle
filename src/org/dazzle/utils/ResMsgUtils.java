@@ -10,15 +10,16 @@ public class ResMsgUtils {
 	 * @author hcqt@qq.com
 	 */
 	public static final String resolve(String msg, Object... parameters) {
-		String ret = msg;
-		if(null != parameters && 0 < parameters.length) {
-			for (int i = 0; i < parameters.length; i++) {
-				if(null != ret) {
-					ret = ret.replace(new StringBuilder().append("{").append(i).append("}").toString(), null == parameters[i] ? "null" : parameters[i].toString());
-				}
-			}
+		if(msg == null || msg.isEmpty() || parameters == null || parameters.length <= 0) {
+			return msg;
 		}
-		return ret;
+		for (int i = 0; i < parameters.length; i++) {
+			msg = SU.replace(
+					msg, 
+					new StringBuilder().append("{").append(i).append("}").toString(), 
+					DTU.cvt(String.class, parameters[i]));
+		}
+		return msg;
 	}
 
 }
