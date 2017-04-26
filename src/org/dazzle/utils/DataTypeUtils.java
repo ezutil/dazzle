@@ -1,4 +1,3 @@
-
 package org.dazzle.utils;
 
 import java.lang.reflect.Array;
@@ -142,10 +141,10 @@ public class DataTypeUtils {
 				return (T) toCollection(destClazz, srcObj);
 			}
 			else {
-				throw new BaseException(msg2Code, msg2, destClazz.getName());
+				throw new DataTypeException(msg2Code, msg2, destClazz.getName());
 			}
 			if(null == ret) {
-				throw new BaseException(msg3Code, msg3, srcObj.getClass().getName(), srcObj, destClazz.getName());
+				throw new DataTypeException(msg3Code, msg3, srcObj.getClass().getName(), srcObj, destClazz.getName());
 			} else {
 				return ret;
 			}
@@ -167,13 +166,13 @@ public class DataTypeUtils {
 				coll = new LinkedList<Object>();
 			} 
 			else {
-				throw new BaseException("dataTypeUtils_8h3kj", "暂不支持向集合类型{0}转换", destClazz.getName());
+				throw new DataTypeException("dataTypeUtils_8h3kj", "暂不支持向集合类型{0}转换", destClazz.getName());
 			}
 		} else {
 			try {
 				coll = (Collection<Object>) destClazz.newInstance();
 			} catch (Exception e) {
-				throw new BaseException("dataTypeUtils_83hnk", "无法对类型{0}进行实例化", e, destClazz.getName());
+				throw new DataTypeException("dataTypeUtils_83hnk", "无法对类型{0}进行实例化", e, destClazz.getName());
 			}
 		}
 		Class<?> objClazz = srcObj.getClass();
@@ -1299,7 +1298,7 @@ public class DataTypeUtils {
 						}
 					} catch (Exception e) { }
 				}
-			} catch (BaseException e) { }
+			} catch (DataTypeException e) { }
 			throw new DataTypeException(
 					"SER_COMMON_META_DATA_54hdQ", 
 					ResMsgUtils.resolve("无法把数据类型为“{0}”的数据“{1}”转换到枚举类型“{2}”", targetObject.getClass().getName(), targetObject, clazz), 
@@ -1346,7 +1345,7 @@ public class DataTypeUtils {
 				else if(targetObject instanceof String) {
 					String dateStr = formatDateStr((String) targetObject);
 					for (String _datePattern : datePattern) {
-						try { return DU.parse(dateStr, _datePattern); } catch (BaseException e) { }
+						try { return DU.parse(dateStr, _datePattern); } catch (DataTypeException e) { }
 					}
 					throw new DataTypeException(
 							"dateTypeUtils_8k93I", 
@@ -1359,7 +1358,7 @@ public class DataTypeUtils {
 			// 注意此处不用else if的原因是由于存在2011.11这种既是日期又是数字的情况，所以不能用else if做互斥代码
 			if(isNumber(targetObject)) {
 				try {  return new Date(DataTypeUtils.convert(Long.class, targetObject)); } 
-				catch (BaseException e) { }
+				catch (DataTypeException e) { }
 			}
 			throw CatchDataTypeException.returnCouldNotConvertException(Date.class, targetObject);
 		}
