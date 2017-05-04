@@ -140,7 +140,7 @@ public class MapUtils {
 	/**@see #get(Class, Map, String)
 	 * @author hcqt@qq.com */
 	public static final <K, V> Object put(Map<K, V> map, K express, V val) {
-		return put(map, express, val, null);
+		return put(map, express, val, map != null ? map.getClass() : null);
 	}
 
 	/**@see #get(Class, Map, String)
