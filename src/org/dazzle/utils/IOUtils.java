@@ -154,63 +154,63 @@ public class IOUtils {
 	}
 
 	/** @author hcqt@qq.com */
-	public static void read(byte[] inByte, String charsetName, ReadRow readRow) {
-		RDText.read(inByte, charsetName, readRow);
+	public static void read(byte[] inByte, String charsetName, ReadLine ReadLine) {
+		RDText.read(inByte, charsetName, ReadLine);
 	}
 
 	/** @author hcqt@qq.com */
-	public static void read(String uriStr, String charsetName, ReadRow readRow) {
-		RDText.read(uriStr, charsetName, readRow);
+	public static void read(String uriStr, String charsetName, ReadLine ReadLine) {
+		RDText.read(uriStr, charsetName, ReadLine);
 	}
 
 	/** @author hcqt@qq.com */
-	public static void read(URI uri,  String charsetName, ReadRow readRow) {
-		RDText.read(uri, charsetName, readRow);
+	public static void read(URI uri,  String charsetName, ReadLine ReadLine) {
+		RDText.read(uri, charsetName, ReadLine);
 	}
 
 	/** @author hcqt@qq.com */
-	public static void read(URL url, String charsetName, ReadRow readRow) {
-		RDText.read(url, charsetName, readRow);
+	public static void read(URL url, String charsetName, ReadLine ReadLine) {
+		RDText.read(url, charsetName, ReadLine);
 	}
 
 	/** @author hcqt@qq.com */
-	public static void read(InputStream inputStream, String charsetName, ReadRow readRow) {
-		RDText.read(inputStream, charsetName, readRow);
+	public static void read(InputStream inputStream, String charsetName, ReadLine ReadLine) {
+		RDText.read(inputStream, charsetName, ReadLine);
 	}
 
 	/** @author hcqt@qq.com */
-	public static void read(File file, String charsetName, ReadRow readRow) {
-		RDText.read(file, charsetName, readRow);
+	public static void read(File file, String charsetName, ReadLine ReadLine) {
+		RDText.read(file, charsetName, ReadLine);
 	}
 
 	/** @author hcqt@qq.com */
-	public static int readRowCount(byte[] inByte) {
-		return RDText.readRowCount(inByte);
+	public static int ReadLineCount(byte[] inByte) {
+		return RDText.ReadLineCount(inByte);
 	}
 
 	/** @author hcqt@qq.com */
-	public static int readRowCount(String uriStr) {
-		return RDText.readRowCount(uriStr);
+	public static int ReadLineCount(String uriStr) {
+		return RDText.ReadLineCount(uriStr);
 	}
 
 	/** @author hcqt@qq.com */
-	public static int readRowCount(URI uri) {
-		return RDText.readRowCount(uri);
+	public static int ReadLineCount(URI uri) {
+		return RDText.ReadLineCount(uri);
 	}
 
 	/** @author hcqt@qq.com */
-	public static int readRowCount(URL url) {
-		return RDText.readRowCount(url);
+	public static int ReadLineCount(URL url) {
+		return RDText.ReadLineCount(url);
 	}
 
 	/** @author hcqt@qq.com */
-	public static int readRowCount(InputStream inputStream) {
-		return RDText.readRowCount(inputStream);
+	public static int ReadLineCount(InputStream inputStream) {
+		return RDText.ReadLineCount(inputStream);
 	}
 
 	/** @author hcqt@qq.com */
-	public static int readRowCount(File file) {
-		return RDText.readRowCount(file);
+	public static int ReadLineCount(File file) {
+		return RDText.ReadLineCount(file);
 	}
 
 	////////////
@@ -727,12 +727,6 @@ public class IOUtils {
 	public static void append2File(File file, String content) throws IOException {
 		write(content, file, true);
 	}
-//
-//	private static SimpleDateFormat dateFormat_for_createDateFile = new SimpleDateFormat("yyyy/MM/dd");
-//	private static String createDateFile() {
-//		String dateFile = dateFormat_for_createDateFile.format(new Date());
-//		return dateFile;
-//	}
 
 	/** @author hcqt@qq.com */
 	private static final class RDText {
@@ -766,7 +760,7 @@ public class IOUtils {
 		private static final String read(InputStream inputStream, final String lineEndSeparator, String charsetName) {
 			final StringBuilder sb = new StringBuilder();
 			final boolean[] flag = new boolean[] { false };
-			read(inputStream, charsetName, new ReadRow() {
+			read(inputStream, charsetName, new ReadLine() {
 				@Override
 				public boolean read(String rowText, int rowNum) {
 					sb.append(rowText);
@@ -787,28 +781,28 @@ public class IOUtils {
 		}
 
 		/** @author hcqt@qq.com */
-		private static final void read(byte[] inStrByte, String charsetName, ReadRow readRow) {
-			read(CStream.createInputStream(inStrByte), charsetName, readRow);
+		private static final void read(byte[] inStrByte, String charsetName, ReadLine ReadLine) {
+			read(CStream.createInputStream(inStrByte), charsetName, ReadLine);
 		}
 
 		/** @author hcqt@qq.com */
-		private static final void read(String uriStr, String charsetName, ReadRow readRow) {
-			read(UU.create(uriStr), charsetName, readRow);
+		private static final void read(String uriStr, String charsetName, ReadLine ReadLine) {
+			read(UU.create(uriStr), charsetName, ReadLine);
 		}
 
 		/** @author hcqt@qq.com */
-		private static final void read(URI uri, String charsetName, ReadRow readRow) {
-			read(CStream.createInputStream(uri), charsetName, readRow);
+		private static final void read(URI uri, String charsetName, ReadLine ReadLine) {
+			read(CStream.createInputStream(uri), charsetName, ReadLine);
 		}
 
 		/** @author hcqt@qq.com */
-		private static final void read(URL url, String charsetName, ReadRow readRow) {
-			read(CStream.createInputStream(url), charsetName, readRow);
+		private static final void read(URL url, String charsetName, ReadLine ReadLine) {
+			read(CStream.createInputStream(url), charsetName, ReadLine);
 		}
 
 		/** @author hcqt@qq.com */
-		private static final void read(File file, String charsetName, ReadRow readRow) {
-			read(CStream.createInputStream(file), charsetName, readRow);
+		private static final void read(File file, String charsetName, ReadLine ReadLine) {
+			read(CStream.createInputStream(file), charsetName, ReadLine);
 		}
 
 		/** @author hcqt@qq.com */
@@ -839,7 +833,7 @@ public class IOUtils {
 		/** @author hcqt@qq.com */
 		private static final String read(InputStream inputStream, String charsetName, final int rowNum) {
 			final String[] ret = new String[1];
-			read(inputStream, charsetName, new ReadRow() {
+			read(inputStream, charsetName, new ReadLine() {
 				@Override
 				public boolean read(String rowText, int _rowNum) {
 					if(rowNum != _rowNum) {
@@ -853,34 +847,34 @@ public class IOUtils {
 		}
 
 		/** @author hcqt@qq.com */
-		private static final int readRowCount(byte[] inStrByte) {
-			return readRowCount(CStream.createInputStream(inStrByte));
+		private static final int ReadLineCount(byte[] inStrByte) {
+			return ReadLineCount(CStream.createInputStream(inStrByte));
 		}
 
 		/** @author hcqt@qq.com */
-		private static final int readRowCount(String uriStr) {
-			return readRowCount(UU.create(uriStr));
+		private static final int ReadLineCount(String uriStr) {
+			return ReadLineCount(UU.create(uriStr));
 		}
 
 		/** @author hcqt@qq.com */
-		private static final int readRowCount(URI uri) {
-			return readRowCount(CStream.createInputStream(uri));
+		private static final int ReadLineCount(URI uri) {
+			return ReadLineCount(CStream.createInputStream(uri));
 		}
 
 		/** @author hcqt@qq.com */
-		private static final int readRowCount(URL url) {
-			return readRowCount(CStream.createInputStream(url));
+		private static final int ReadLineCount(URL url) {
+			return ReadLineCount(CStream.createInputStream(url));
 		}
 
 		/** @author hcqt@qq.com */
-		private static final int readRowCount(File file) {
-			return readRowCount(CStream.createInputStream(file));
+		private static final int ReadLineCount(File file) {
+			return ReadLineCount(CStream.createInputStream(file));
 		}
 
 		/** @author hcqt@qq.com */
-		private static final int readRowCount(InputStream inputStream) {
+		private static final int ReadLineCount(InputStream inputStream) {
 			final Integer[] ret = new Integer[1];
-			read(inputStream, Charset.defaultCharset().toString(), new ReadRow() {
+			read(inputStream, Charset.defaultCharset().toString(), new ReadLine() {
 				@Override
 				public boolean read(String rowText, int rowNum) {
 					ret[0] = rowNum;
@@ -889,46 +883,9 @@ public class IOUtils {
 			});
 			return ret[0];
 		}
-//		private static final StringBuilder read0(InputStream inputStream, String lineEndSeparator, String charsetName) {
-//			if(inputStream == null) {
-//				return null;
-//			}
-//			InputStreamReader inputStreamReader = null;
-//			BufferedReader bufferedReader = null;
-//			try {
-//				lineEndSeparator = (null == lineEndSeparator ? "\r\n" : lineEndSeparator);
-//				charsetName = (null == charsetName ? "UTF-8" : charsetName);
-//				try {
-//					inputStreamReader = new InputStreamReader(inputStream, charsetName);
-//				} catch (UnsupportedEncodingException e) {
-//					throw new org.dazzle.utils.IOUtils.IOException("COMMON_READ_FILE_0knvR", "输入流不支持以字符集编码{1}进行读取", e, charsetName);
-//				}
-//				bufferedReader = new BufferedReader(inputStreamReader);
-//				StringBuilder stringBuilder = new StringBuilder();
-//				String line = null;
-//				try {
-//					while (null != (line = bufferedReader.readLine())) {
-//						stringBuilder.append(line).append(lineEndSeparator);
-//					}
-//				} catch (IOException e) {
-//					throw new org.dazzle.utils.IOUtils.IOException("COMMON_READ_FILE_5eDfy", "文件[{0}]读取失败，详情——{1}", e, ExceptionUtils.out(e));
-//				}
-//				return stringBuilder;
-//			} finally {
-//				if(bufferedReader != null) {
-//					try { bufferedReader.close(); } catch (IOException e) { }
-//				}
-//				if(inputStreamReader!= null) {
-//					try { inputStreamReader.close(); } catch (IOException e) { }
-//				}
-//				if(inputStream != null) {
-//					try { inputStream.close(); } catch (IOException e) { }
-//				}
-//			}
-//		}
 
 		/** @author hcqt@qq.com */
-		private static final void read(InputStream inputStream, String charsetName, ReadRow readRow) {
+		private static final void read(InputStream inputStream, String charsetName, ReadLine ReadLine) {
 			if(inputStream == null) {
 				return;
 			}
@@ -945,7 +902,7 @@ public class IOUtils {
 				String line = null;
 				try {
 					for (int i = 1; null != (line = bufferedReader.readLine()); i++) {
-						readRow.read(line, i);
+						ReadLine.read(line, i);
 					}
 				} catch (java.io.IOException e) {
 					throw new org.dazzle.utils.IOUtils.IOException("COMMON_READ_FILE_ib4V3", "输入流读取失败，详情——{1}", e, e.getMessage());
@@ -963,76 +920,10 @@ public class IOUtils {
 			}
 		}
 		
-//		private static final String read2(InputStream inputStream, String charsetName, int rowNum) {
-//			InputStreamReader inputStreamReader = null;
-//			BufferedReader bufferedReader = null;
-//			try {
-//				charsetName = (null == charsetName ? "UTF-8" : charsetName);
-//				try {
-//					inputStreamReader = new InputStreamReader(inputStream, charsetName);
-//				} catch (UnsupportedEncodingException e) {
-//					throw new org.dazzle.utils.IOUtils.IOException("COMMON_READ_FILE_G1gvR", "输入流不支持以字符集编码{1}进行读取", e, charsetName);
-//				}
-//				bufferedReader = new BufferedReader(inputStreamReader);
-//				String line = null;
-//				try {
-//					for (int i = 1; null != (line = bufferedReader.readLine()); i++) {
-//						if(i == rowNum) {
-//							return line;
-//						}
-//					}
-//					return null;
-//				} catch (IOException e) {
-//					throw new org.dazzle.utils.IOUtils.IOException("COMMON_READ_FILE_kwQ20", "文件[{0}]读取失败，详情——{1}", e, ExceptionUtils.out(e));
-//				}
-//			} finally {
-//				if(bufferedReader != null) {
-//					try { bufferedReader.close(); } catch (IOException e) { }
-//				}
-//				if(inputStreamReader!= null) {
-//					try { inputStreamReader.close(); } catch (IOException e) { }
-//				}
-//				if(inputStream != null) {
-//					try { inputStream.close(); } catch (IOException e) { }
-//				}
-//			}
-//		}
-		
-//		private static final int read3(InputStream inputStream) {
-//			read1(inputStream, charsetName, readRow);
-//		}
-//		private static final int read3(InputStream inputStream) {
-//			InputStreamReader inputStreamReader = null;
-//			BufferedReader bufferedReader = null;
-//			try {
-//				inputStreamReader = new InputStreamReader(inputStream);
-//				bufferedReader = new BufferedReader(inputStreamReader);
-//				try {
-//					int count = 1;
-//					while(null != bufferedReader.readLine()) {
-//						count++;
-//					}
-//					return count;
-//				} catch (IOException e) {
-//					throw new org.dazzle.utils.IOUtils.IOException("COMMON_READ_FILE_6jd2d", "文件[{0}]读取失败，详情——{1}", e, ExceptionUtils.out(e));
-//				}
-//			} finally {
-//				if(bufferedReader != null) {
-//					try { bufferedReader.close(); } catch (IOException e) { }
-//				}
-//				if(inputStreamReader!= null) {
-//					try { inputStreamReader.close(); } catch (IOException e) { }
-//				}
-//				if(inputStream != null) {
-//					try { inputStream.close(); } catch (IOException e) { }
-//				}
-//			}
-//		}
-		
 	}
-
+	
 	/** @author hcqt@qq.com */
-	public interface ReadRow {
+	public interface ReadLine {
 		/**@return boolean 返回true表示继续下一行，false表示终止逐行读取
 		 * @author hcqt@qq.com */
 		boolean read(String rowText, int rowNum);
@@ -1056,98 +947,6 @@ public class IOUtils {
 			copy(inputStream, outputStream);
 		}
 		
-//	private static void write(byte[] inByte, File outFile) {
-//		write(CStream.createInputStream(inByte), CStream.createOutputStream(outFile));
-//	}
-//	
-//	private static void write(byte[] inByte, URI outUri) {
-//		write(CStream.createInputStream(inByte), CStream.createOutputStream(outUri));
-//	}
-//	
-//	private static void write(byte[] inByte, URL outUrl) {
-//		write(CStream.createInputStream(inByte), CStream.createOutputStream(outUrl));
-//	}
-//		private static void write(String inString, File outFile) {
-//			write(CStream.createInputStream(inString.getBytes()), CStream.createOutputStream(outFile));
-//		}
-//		
-//		private static void write(String inString, URI outUri) {
-//			write(CStream.createInputStream(inString.getBytes()), CStream.createOutputStream(outUri));
-//		}
-//		
-//		private static void write(String inString, URL outUrl) {
-//			write(CStream.createInputStream(inString.getBytes()), CStream.createOutputStream(outUrl));
-//		}
-//
-//		private static void write(File inFile, OutputStream outputStream) {
-//			write(CStream.createInputStream(inFile), outputStream);
-//		}
-//
-//		private static void write(URI inUri, OutputStream outputStream) {
-//			write(CStream.createInputStream(inUri), outputStream);
-//		}
-//		
-//		private static void write(URL inUrl, OutputStream outputStream) {
-//			write(CStream.createInputStream(inUrl), outputStream);
-//		}
-//
-//		private static void write(InputStream inputStream, URI outUri) {
-//			write(inputStream, CStream.createOutputStream(outUri));
-//		}
-//
-//		private static void write(InputStream inputStream, URL outUrl) {
-//			write(inputStream, CStream.createOutputStream(outUrl));
-//		}
-//
-//		private static void write(InputStream inputStream, OutputStream outputStream) {
-//			try {
-//				byte[] b = new byte[1024];
-//				int i = 0;
-//				while(true) {
-//					try {
-//						i = inputStream.read(b);
-//					} catch (IOException e) {
-//						throw new org.dazzle.utils.IOUtils.IOException("COMMON_IO_UTIL_4gr6S", "读取输入流出错，详情——{0}", e, ExceptionUtils.out(e));
-//					}
-//					if(-1 == i) {
-//						break;
-//					}
-//					try {
-//						outputStream.write(b, 0, i);
-//					} catch (IOException e) {
-//						throw new org.dazzle.utils.IOUtils.IOException("COMMON_IO_UTIL_u4vR4", "写入输出流出错，详情——{0}", e, ExceptionUtils.out(e));
-//					}
-//				}
-//			} finally {
-//				if(inputStream != null) {
-//					try { inputStream.close(); } catch (IOException e) { }
-//				}
-//				if(outputStream != null) {
-//					try { outputStream.flush(); } catch (IOException e) { }
-//					try { outputStream.close(); } catch (IOException e) { }
-//				}
-//			}
-//		}
-//
-//		/**
-//		 * 把字符串写入文件当中
-//		 * @param file 要写入的文件
-//		 * @param content 要写入的字符串
-//		 * @param append 追加还是覆盖，true为追加，false为覆盖
-//		 * @throws IOException
-//		 */
-//		private static void writeString(File file, String content, boolean isAppend) throws IOException {
-//			FileWriter fileWriter = null;
-//			try {
-//				fileWriter = new FileWriter(file, isAppend);
-//				fileWriter.write(content);
-//			} finally {
-//				if(null != fileWriter) { 
-//					try { fileWriter.close(); } catch (IOException e) { e.printStackTrace(); } 
-//				}
-//			}
-//		}
-
 	}
 
 	/** @author hcqt@qq.com */
