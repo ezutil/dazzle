@@ -1252,7 +1252,7 @@ public class DataTypeUtils {
 		/** @author hcqt@qq.com */
 		private static final Boolean convert(final Object targetObject) {
 			if(targetObject instanceof String) {
-				return Boolean.valueOf((String) targetObject);// TODO 异常处理
+				return Boolean.valueOf((String) targetObject);
 			}
 			else if(targetObject instanceof Boolean) {
 				return (Boolean) targetObject;
