@@ -783,7 +783,7 @@ public class DataTypeUtils {
 	public static final String msg3 = "无法将数据类型为“{0}”的数据“{1}”转换为类型“{2}”";
 
 	/** @author hcqt@qq.com */
-	static final class DataTypeException extends BaseException {
+	public static final class DataTypeException extends BaseException {
 
 		private static final long serialVersionUID = 4654330042965245163L;
 
