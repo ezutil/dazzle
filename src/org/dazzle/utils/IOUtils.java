@@ -905,7 +905,7 @@ public class IOUtils {
 						ReadLine.read(line, i);
 					}
 				} catch (java.io.IOException e) {
-					throw new org.dazzle.utils.IOUtils.IOException("COMMON_READ_FILE_ib4V3", "输入流读取失败，详情——{1}", e, e.getMessage());
+					throw new org.dazzle.utils.IOUtils.IOException("COMMON_READ_FILE_ib4V3", "输入流读取失败，详情——{0}", e, e.getMessage());
 				}
 			} finally {
 				if(bufferedReader != null) {
