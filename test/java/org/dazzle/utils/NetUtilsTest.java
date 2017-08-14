@@ -1,16 +1,53 @@
 package org.dazzle.utils;
 
+import java.io.File;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.net.URI;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import javax.net.ssl.SSLSocketFactory;
+
 import org.junit.Test;
 
 public class NetUtilsTest {
-
+	
+	@Test
+	public void test12() {
+		File responseOverflowThresholdTmpFileDirectory = null;
+		Integer responseOneTimeLoadMemoryThreshold = null;
+		Integer timeout = null;
+		SSLSocketFactory sslSocketFactory = null;
+		InputStream inputStream = null;
+		Map<String, String> requestProperty = MU.<String, String> put(LinkedHashMap.class, 
+				"Accept-Encoding", "gzip, deflate, br"
+				);
+		String requestMethod = "GET";
+		URI url = UU.create("http://www.sohu.com");
+		InputStream resp = NU.httpRead(url, requestMethod, requestProperty, inputStream, sslSocketFactory, timeout, responseOneTimeLoadMemoryThreshold, responseOverflowThresholdTmpFileDirectory);
+		System.out.println(resp.getClass());
+		System.out.println(IOU.readText(resp));
+	}
+	
+	@Test
+	public void test11() {
+		File responseOverflowThresholdTmpFileDirectory = null;
+		Integer responseOneTimeLoadMemoryThreshold = null;
+		Integer timeout = null;
+		SSLSocketFactory sslSocketFactory = null;
+		InputStream inputStream = null;
+		Map<String, String> requestProperty = null;
+		String requestMethod = "GET";
+		URI url = UU.create("http://www.sohu.com");
+		InputStream resp = NU.httpRead(url, requestMethod, requestProperty, inputStream, sslSocketFactory, timeout, responseOneTimeLoadMemoryThreshold, responseOverflowThresholdTmpFileDirectory);
+		System.out.println(resp.getClass());
+		System.out.println(IOU.readText(resp));
+	}
+	
 	@Test
 	public void test10() {
 		Map<String, String[]> parameters = new LinkedHashMap<String, String[]>();

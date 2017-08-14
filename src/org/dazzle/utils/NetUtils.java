@@ -1,5 +1,6 @@
 package org.dazzle.utils;
 
+import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -11,6 +12,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
+import java.net.SocketTimeoutException;
 import java.net.URI;
 import java.net.URL;
 import java.net.URLDecoder;
@@ -23,6 +25,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.zip.GZIPInputStream;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLSocketFactory;
@@ -170,7 +173,7 @@ public class NetUtils {
 			try {
 				httpConn = (HttpURLConnection) url.openConnection();
 			} catch (ClassCastException e) {
-				throw new NetException("net_utils_4jjhs", "您传入的url的协议头不是https", e);
+				throw new NetException("net_utils_4jjhs", "您传入的url的协议可能不是http", e);
 			}
 			httpRead.before(httpConn);
 			httpConn.connect();
@@ -183,13 +186,26 @@ public class NetUtils {
 			}
 		}
 	}
+	
+	/** @author hcqt@qq.com */
+	public static final InputStream httpRead(
+			final URI uri, 
+			final String requestMethod, 
+			final Map<String, String> requestProperty, 
+			final InputStream queryInputStream, 
+			final SSLSocketFactory sslSocketFactory, 
+			final Integer timeout, 
+			final Integer responseOneTimeLoadMemoryThreshold,
+			final File responseOverflowThresholdTmpFileDirectory) throws NetException {
+		return httpRead(UU.resolveToURL(uri), requestMethod, requestProperty, queryInputStream, sslSocketFactory, timeout, responseOneTimeLoadMemoryThreshold, responseOverflowThresholdTmpFileDirectory);
+	}
 
 	/** @author hcqt@qq.com */
 	public static final InputStream httpRead(
 			final URL url, 
 			final String requestMethod, 
 			final Map<String, String> requestProperty, 
-			final InputStream inputStream, 
+			final InputStream queryInputStream, 
 			final SSLSocketFactory sslSocketFactory, 
 			final Integer timeout, 
 			final Integer responseOneTimeLoadMemoryThreshold,
@@ -209,6 +225,7 @@ public class NetUtils {
 				}
 				conn.setDoInput(true);
 				if(timeout != null) {
+					conn.setConnectTimeout(timeout);
 					conn.setReadTimeout(timeout);
 				}
 				if(null != requestProperty) {
@@ -216,12 +233,12 @@ public class NetUtils {
 						conn.setRequestProperty(entry.getKey(), entry.getValue());
 					}
 				}
-				if(null != inputStream) {
+				if(null != queryInputStream) {
 					conn.setDoOutput(true);
 					OutputStream outputStream = null;
 					try {
 						outputStream = conn.getOutputStream();
-						IOU.write(inputStream, outputStream);
+						IOU.write(queryInputStream, outputStream);
 					} catch (IOException e) {
 						throw new NetException("https_read_2G9vI", "无法向地址{0}中写入参数", e, url, null, null, conn.getHeaderFields(), url);
 					} finally {
@@ -255,7 +272,19 @@ public class NetUtils {
 				}
 			}
 		});
-		return retInputStream[0];
+//		if(requestProperty != null && requestProperty.get("Accept-Encoding") != null && requestProperty.get("Accept-Encoding").toLowerCase().contains("gzip")) {
+//		}
+		// 尝试以gzip封装，如果出错，则退回非压缩流，以响应流魔数为准，不用请求头Accept-Encoding判断，bin流不可关闭，否则会导致读取GZIP流时出现流已关闭异常
+		BufferedInputStream bin = new BufferedInputStream(retInputStream[0]);
+		bin.mark(0);
+		try {
+			return new GZIPInputStream(bin);
+		} catch (IOException e) {
+			try { bin.reset(); } catch (IOException e1) { }
+			return bin;
+		} finally {
+			try { retInputStream[0].close(); } catch (IOException e) { }
+		}
 	}
 
 	/** @author hcqt@qq.com */
@@ -278,7 +307,7 @@ public class NetUtils {
 				Integer responseOneTimeLoadMemoryThreshold, 
 				File responseOverflowThresholdTmpFileDirectory) {
 			super();
-			if(responseOneTimeLoadMemoryThreshold == null || responseContentLength < responseOneTimeLoadMemoryThreshold) {
+			if(responseOneTimeLoadMemoryThreshold == null || (responseContentLength != -1 && responseContentLength < responseOneTimeLoadMemoryThreshold)) {
 				encapsulationInputStream = loadMemory(inputStream);
 				LOGGER.debug("####响应流输出到内存成功");
 			} else {
@@ -487,11 +516,13 @@ public class NetUtils {
 		else if(e instanceof java.net.NoRouteToHostException) {
 			throw new NetException(err95Code, err95Msg, e, e.getMessage());
 		} 
+		else if(e instanceof SocketTimeoutException) {
+			throw new NetException(err91Code, err91Msg, e, e.getMessage());
+		} 
 		else {
 			throw new NetException(err94Code, err94Msg, e, EU.out(e));
 		}
 	}
-
 
 	public static final String err100Code = "net_utils_58124";
 	public static final String err100Msg = "无法正常连接URL——{0}，URL状态号——{1}，http头数据——{2}，错误详情——{3}";
@@ -507,6 +538,9 @@ public class NetUtils {
 	
 	public static final String err96Code = "net_utils_ugws1";
 	public static final String err96Msg = "网络连接超时";
+	
+	public static final String err91Code = "net_utils_9l3kW";
+	public static final String err91Msg = "连接超时，详情——{0}";
 
 	public static final String err95Code = "net_utils_k23n5";
 	public static final String err95Msg = "连接不到主机，详情——{0}";
