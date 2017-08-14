@@ -13,6 +13,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -119,6 +120,19 @@ public class SpringDaoUtils {
 		List<Object> params = new ArrayList<Object>();
 		createInsertSql(fieldsMapping, tablesMapping, tableName, data, sql, params);
 		return insert(jdbcOperations, sql.toString(), params);
+	}
+	
+	/**@author hcqt@qq.com*/
+	public static final Long insert(
+			JdbcOperations jdbcOperations, 
+			String sql,
+			Object... params) {
+		@SuppressWarnings("unchecked")
+		List<Object> list = DTU.cvt(List.class, params);
+		if(list == null) {
+			list = Collections.emptyList();
+		}
+		return insert(jdbcOperations, sql, params);
 	}
 
 	/**@author hcqt@qq.com*/
